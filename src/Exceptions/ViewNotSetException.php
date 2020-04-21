@@ -2,7 +2,6 @@
 
 namespace BabDev\Breadcrumbs\Exceptions;
 
-use BabDev\Breadcrumbs\BreadcrumbsException;
 use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
@@ -10,7 +9,7 @@ use Facade\IgnitionContracts\ProvidesSolution;
 /**
  * Exception that is thrown if the user attempts to render breadcrumbs without setting a view.
  */
-class ViewNotSetException extends BreadcrumbsException implements ProvidesSolution
+class ViewNotSetException extends \RuntimeException implements BreadcrumbsException, ProvidesSolution
 {
     public function getSolution(): Solution
     {

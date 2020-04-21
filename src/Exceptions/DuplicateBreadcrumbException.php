@@ -2,7 +2,6 @@
 
 namespace BabDev\Breadcrumbs\Exceptions;
 
-use BabDev\Breadcrumbs\BreadcrumbsException;
 use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
@@ -13,7 +12,7 @@ use Illuminate\Support\Str;
  *
  * @see \BabDev\Breadcrumbs\BreadcrumbsManager::register()
  */
-class DuplicateBreadcrumbException extends BreadcrumbsException implements ProvidesSolution
+class DuplicateBreadcrumbException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
     private $name;
 
