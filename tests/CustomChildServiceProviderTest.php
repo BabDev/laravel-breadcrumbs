@@ -2,8 +2,10 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider as BreadcrumbsServiceProvider;
+use BabDev\Breadcrumbs\Contracts\BreadcrumbsManager;
+use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider;
 use Breadcrumbs;
+use Illuminate\Contracts\Foundation\Application;
 
 class CustomChildServiceProviderTest extends TestCase
 {
@@ -28,7 +30,7 @@ class CustomChildServiceProviderTest extends TestCase
 
 class CustomChildBreadcrumbsServiceProvider extends BreadcrumbsServiceProvider
 {
-    public function registerBreadcrumbs(): void
+    protected function registerBreadcrumbs(BreadcrumbsManager $breadcrumbs, Application $app): void
     {
         Breadcrumbs::for('home', function ($trail) {
             $trail->push('Home', '/');
