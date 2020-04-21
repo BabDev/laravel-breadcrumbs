@@ -3,7 +3,7 @@
 namespace BabDev\Breadcrumbs\Tests;
 
 use Breadcrumbs;
-use BabDev\Breadcrumbs\BreadcrumbsServiceProvider as BreadcrumbsServiceProvider;
+use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider as BreadcrumbsServiceProvider;
 
 class CustomChildServiceProviderTest extends TestCase
 {

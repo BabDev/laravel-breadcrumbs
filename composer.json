@@ -38,7 +38,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "BabDev\\Breadcrumbs\\BreadcrumbsServiceProvider"
+                "BabDev\\Breadcrumbs\\Providers\\BreadcrumbsServiceProvider"
             ],
             "aliases": {
                 "Breadcrumbs": "BabDev\\Breadcrumbs\\Facades\\Breadcrumbs"

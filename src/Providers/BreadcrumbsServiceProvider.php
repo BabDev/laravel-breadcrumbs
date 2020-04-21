@@ -1,9 +1,11 @@
 <?php
 
-namespace BabDev\Breadcrumbs;
+namespace BabDev\Breadcrumbs\Providers;
 
 // Not available until Laravel 5.8
 //use Illuminate\Contracts\Support\DeferrableProvider;
+use BabDev\Breadcrumbs\BreadcrumbsGenerator;
+use BabDev\Breadcrumbs\BreadcrumbsManager;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -36,7 +38,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
     public function register(): void
     {
         // Load the default config values
-        $this->mergeConfigFrom(__DIR__ . '/../config/breadcrumbs.php', 'breadcrumbs');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/breadcrumbs.php', 'breadcrumbs');
 
         // Register Manager class singleton with the app container
         $this->app->singleton(BreadcrumbsManager::class, config('breadcrumbs.manager-class'));
@@ -53,11 +55,11 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
     public function boot(): void
     {
         // Register 'breadcrumbs::' view namespace
-        $this->loadViewsFrom(__DIR__ . '/../views/', 'breadcrumbs');
+        $this->loadViewsFrom(__DIR__ . '/../../views/', 'breadcrumbs');
 
         // Publish the config/breadcrumbs.php file
         $this->publishes([
-            __DIR__ . '/../config/breadcrumbs.php' => config_path('breadcrumbs.php'),
+            __DIR__ . '/../../config/breadcrumbs.php' => config_path('breadcrumbs.php'),
         ], 'breadcrumbs-config');
 
         // Load the routes/breadcrumbs.php file
