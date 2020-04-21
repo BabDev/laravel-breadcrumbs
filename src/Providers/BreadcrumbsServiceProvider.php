@@ -2,8 +2,7 @@
 
 namespace BabDev\Breadcrumbs\Providers;
 
-// Not available until Laravel 5.8
-//use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use BabDev\Breadcrumbs\BreadcrumbsGenerator;
 use BabDev\Breadcrumbs\BreadcrumbsManager;
 use Illuminate\Support\ServiceProvider;
@@ -11,15 +10,8 @@ use Illuminate\Support\ServiceProvider;
 /**
  * The Laravel service provider, which registers, configures and bootstraps the package.
  */
-class BreadcrumbsServiceProvider extends ServiceProvider //implements DeferrableProvider
+class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    public function isDeferred()
-    {
-        // Remove this and uncomment DeferrableProvider after dropping support
-        // for Laravel 5.7 and below
-        return true;
-    }
-
     /**
      * Get the services provided for deferred loading.
      *
