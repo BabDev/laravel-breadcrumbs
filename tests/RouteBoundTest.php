@@ -2,8 +2,8 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use Breadcrumbs;
 use BabDev\Breadcrumbs\Tests\Models\Post;
+use Breadcrumbs;
 use Config;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Route;
@@ -13,7 +13,8 @@ class RouteBoundTest extends TestCase
     public function testRender()
     {
         // Home
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Breadcrumbs::for('home', function ($trail) {
             $trail->push('Home', route('home'));
@@ -43,7 +44,8 @@ class RouteBoundTest extends TestCase
     public function testGenerate()
     {
         // Home
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Breadcrumbs::for('home', function ($trail) {
             $trail->push('Home', route('home'));
@@ -74,7 +76,8 @@ class RouteBoundTest extends TestCase
     public function testView()
     {
         // Home
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));
@@ -104,7 +107,8 @@ class RouteBoundTest extends TestCase
     public function testExists()
     {
         // Exists
-        Breadcrumbs::for('exists', function () { });
+        Breadcrumbs::for('exists', function () {
+        });
 
         Route::name('exists')->get('/exists', function () use (&$exists1) {
             $exists1 = Breadcrumbs::exists();
@@ -132,7 +136,8 @@ class RouteBoundTest extends TestCase
 
     public function testError404()
     {
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));
@@ -225,7 +230,8 @@ class RouteBoundTest extends TestCase
     public function testExplicitModelBinding()
     {
         // Home
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));
@@ -256,7 +262,8 @@ class RouteBoundTest extends TestCase
     public function testImplicitModelBinding()
     {
         // Home
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Breadcrumbs;
 use BabDev\Breadcrumbs\Tests\Models\Post;
+use Breadcrumbs;
 
 class PostController
 {

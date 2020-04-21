@@ -23,7 +23,7 @@ class UnnamedRouteException extends \InvalidArgumentException implements Breadcr
 
     public function __construct(Route $route)
     {
-        $uri = Arr::first($route->methods()) . ' /' . ltrim($route->uri(), '/');
+        $uri = Arr::first($route->methods()) . ' /' . \ltrim($route->uri(), '/');
 
         parent::__construct("The current route ($uri) is not named");
 
@@ -32,7 +32,7 @@ class UnnamedRouteException extends \InvalidArgumentException implements Breadcr
 
     public function getSolution(): Solution
     {
-        $method = strtolower(Arr::first($this->route->methods()));
+        $method = \strtolower(Arr::first($this->route->methods()));
         $uri = $this->route->uri();
         $action = $this->route->getActionName();
 

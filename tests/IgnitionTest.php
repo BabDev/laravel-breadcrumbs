@@ -2,12 +2,12 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use Breadcrumbs;
-use Config;
 use BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use BabDev\Breadcrumbs\Exceptions\UnnamedRouteException;
 use BabDev\Breadcrumbs\Exceptions\ViewNotSetException;
+use Breadcrumbs;
+use Config;
 use ErrorException;
 use Facade\IgnitionContracts\ProvidesSolution;
 use Route;

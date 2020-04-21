@@ -2,12 +2,10 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
+use BabDev\Breadcrumbs\BreadcrumbsGenerator;
 use Breadcrumbs;
 use Config;
-use BabDev\Breadcrumbs\BreadcrumbsGenerator;
 use Illuminate\Support\Collection;
-use Route;
-use URL;
 
 class CustomGeneratorTest extends TestCase
 {
@@ -33,5 +31,4 @@ class CustomGenerator extends BreadcrumbsGenerator
     {
         return new Collection(['custom-generator']);
     }
-
 }

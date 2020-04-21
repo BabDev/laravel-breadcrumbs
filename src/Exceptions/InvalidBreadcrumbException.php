@@ -32,10 +32,10 @@ class InvalidBreadcrumbException extends \InvalidArgumentException implements Br
     public function getSolution(): Solution
     {
         // Determine the breadcrumbs file name
-        $files = (array)config('breadcrumbs.files');
+        $files = (array) config('breadcrumbs.files');
 
-        if (count($files) === 1) {
-            $file = Str::replaceFirst(base_path() . DIRECTORY_SEPARATOR, '', $files[0]);
+        if (\count($files) === 1) {
+            $file = Str::replaceFirst(base_path() . \DIRECTORY_SEPARATOR, '', $files[0]);
         } else {
             $file = 'one of the files defined in config/breadcrumbs.php';
         }
@@ -43,6 +43,7 @@ class InvalidBreadcrumbException extends \InvalidArgumentException implements Br
         // Determine the current route name
         $route = Route::current();
         $routeName = $route ? $route->getName() : null;
+
         if ($routeName) {
             $url = "route('{$this->name}')";
         } else {

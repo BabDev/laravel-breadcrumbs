@@ -3,7 +3,6 @@
 namespace BabDev\Breadcrumbs\Tests;
 
 use Breadcrumbs;
-use Config;
 
 class MultipleFileLoadingTest extends TestCase
 {
@@ -11,7 +10,7 @@ class MultipleFileLoadingTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $app->config->set('breadcrumbs.files', glob(__DIR__ . '/breadcrumbs/*.php'));
+        $app->config->set('breadcrumbs.files', \glob(__DIR__ . '/breadcrumbs/*.php'));
     }
 
     public function testLoading()

@@ -2,12 +2,10 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
+use BabDev\Breadcrumbs\BreadcrumbsManager;
 use Breadcrumbs;
 use Config;
-use BabDev\Breadcrumbs\BreadcrumbsManager;
 use Illuminate\Support\Collection;
-use Route;
-use URL;
 
 class CustomManagerTest extends TestCase
 {

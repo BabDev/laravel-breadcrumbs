@@ -2,7 +2,6 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use Breadcrumbs;
 use Route;
 use URL;
 

@@ -13,7 +13,9 @@ class BasicFunctionalityTest extends TestCase
     {
         parent::setUp();
 
-        $closure = function () { throw new LogicException; };
+        $closure = function () {
+            throw new LogicException();
+        };
 
         // Home
         Route::name('home')->get('/', $closure);

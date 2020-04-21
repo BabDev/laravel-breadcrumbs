@@ -3,7 +3,6 @@
 namespace BabDev\Breadcrumbs\Tests;
 
 use Breadcrumbs;
-use Config;
 
 class SingleFileLoadingTest extends TestCase
 {

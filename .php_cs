@@ -2,6 +2,7 @@
 
 $finder = PhpCsFixer\Finder::create()
     ->notPath('config')
+    ->notPath('tests/__snapshots__')
     ->notPath('vendor')
     ->in(__DIR__)
     ->name('*.php')

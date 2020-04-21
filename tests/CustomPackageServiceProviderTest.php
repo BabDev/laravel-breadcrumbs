@@ -2,10 +2,10 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use Breadcrumbs;
 use BabDev\Breadcrumbs\BreadcrumbsGenerator;
 use BabDev\Breadcrumbs\BreadcrumbsManager;
 use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider;
+use Breadcrumbs;
 use Illuminate\Support\ServiceProvider;
 
 class CustomPackageServiceProviderTest extends TestCase
@@ -32,7 +32,9 @@ class CustomPackageServiceProviderTest extends TestCase
 
 class CustomPackageServiceProvider extends ServiceProvider
 {
-    public function register() { }
+    public function register()
+    {
+    }
 
     public function boot(BreadcrumbsManager $breadcrumbs)
     {

@@ -28,7 +28,7 @@ class TemplatesTest extends TestCase
             $trail->push($category->title, url("blog/category/{$category->id}"));
         });
 
-        $this->category = (object)[
+        $this->category = (object) [
             'id' => 456,
             'title' => 'Sample Category',
         ];
@@ -36,8 +36,8 @@ class TemplatesTest extends TestCase
 
     public function viewProvider(): Generator
     {
-        foreach (glob(__DIR__ . '/../resources/views/*.blade.php') as $filename) {
-            $name = basename($filename, '.blade.php');
+        foreach (\glob(__DIR__ . '/../resources/views/*.blade.php') as $filename) {
+            $name = \basename($filename, '.blade.php');
             yield $name => [$name];
         }
     }

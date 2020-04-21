@@ -2,9 +2,9 @@
 
 namespace BabDev\Breadcrumbs\Exceptions;
 
-use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
+use Facade\IgnitionContracts\Solution;
 use Illuminate\Support\Str;
 
 /**
@@ -26,17 +26,18 @@ class DuplicateBreadcrumbException extends \InvalidArgumentException implements 
     public function getSolution(): Solution
     {
         // Determine the breadcrumbs file name(s)
-        $files = (array)config('breadcrumbs.files');
+        $files = (array) config('breadcrumbs.files');
 
-        $basePath = base_path() . DIRECTORY_SEPARATOR;
+        $basePath = base_path() . \DIRECTORY_SEPARATOR;
+
         foreach ($files as &$file) {
             $file = Str::replaceFirst($basePath, '', $file);
         }
 
-        if (count($files) === 1) {
+        if (\count($files) === 1) {
             $description = "Look in `$files[0]` for multiple breadcrumbs named `{$this->name}`.";
         } else {
-            $description = "Look in the following files for multiple breadcrumbs named `{$this->name}`:\n\n- `" . implode("`\n -`", $files) . '`';
+            $description = "Look in the following files for multiple breadcrumbs named `{$this->name}`:\n\n- `" . \implode("`\n -`", $files) . '`';
         }
 
         $links = [];

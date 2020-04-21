@@ -20,4 +20,4 @@ foreach ($breadcrumbs as $i => $breadcrumb) {
     ];
 }
 ?>
-<script type="application/ld+json"><?= json_encode($json) ?></script>
+<script type="application/ld+json"><?php echo \json_encode($json) ?></script>

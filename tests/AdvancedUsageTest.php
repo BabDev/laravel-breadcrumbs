@@ -2,8 +2,8 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use Breadcrumbs;
 use BabDev\Breadcrumbs\Tests\Models\Post;
+use Breadcrumbs;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Collection;
 use Route;
@@ -49,6 +49,7 @@ class AdvancedUsageTest extends TestCase
 
         Breadcrumbs::after(function ($trail) {
             $page = (int) request('page', 1);
+
             if ($page > 1) {
                 $trail->push("Page $page");
             }
@@ -71,7 +72,8 @@ class AdvancedUsageTest extends TestCase
 
     public function testCurrentPageBreadcrumb()
     {
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Route::name('post')->middleware(SubstituteBindings::class)->get('/post/{post}', function (Post $post) {
             return Breadcrumbs::current()->title;
@@ -90,8 +92,10 @@ class AdvancedUsageTest extends TestCase
 
     public function testGenerateCollection()
     {
-        Route::name('home')->get('/', function () { });
-        Route::name('post')->get('/post/{post}', function () { });
+        Route::name('home')->get('/', function () {
+        });
+        Route::name('post')->get('/post/{post}', function () {
+        });
 
         Breadcrumbs::for('post', function ($trail, $id) {
             $trail->push('Home', route('home'));
@@ -107,7 +111,8 @@ class AdvancedUsageTest extends TestCase
 
     public function testPageTitleMacro()
     {
-        Route::name('home')->get('/', function () { });
+        Route::name('home')->get('/', function () {
+        });
 
         Route::name('post')->middleware(SubstituteBindings::class)->get('/post/{post}', function (Post $post) {
             return Breadcrumbs::pageTitle();
@@ -137,14 +142,22 @@ class AdvancedUsageTest extends TestCase
     public function testResourceMacro()
     {
         // Routes
-        Route::name('home')->get('/', function () { });
-        Route::name('blog.index')->get('/blog', function () { });
-        Route::name('blog.create')->get('/blog/create', function () { });
-        Route::name('blog.store')->post('/blog', function () { });
-        Route::name('blog.show')->middleware(SubstituteBindings::class)->get('/blog/{post}', function (Post $post) { });
-        Route::name('blog.edit')->middleware(SubstituteBindings::class)->get('/blog/{post}/edit', function (Post $post) { });
-        Route::name('blog.update')->middleware(SubstituteBindings::class)->put('/blog/{post}', function (Post $post) { });
-        Route::name('blog.destroy')->middleware(SubstituteBindings::class)->delete('/blog/{post}', function (Post $post) { });
+        Route::name('home')->get('/', function () {
+        });
+        Route::name('blog.index')->get('/blog', function () {
+        });
+        Route::name('blog.create')->get('/blog/create', function () {
+        });
+        Route::name('blog.store')->post('/blog', function () {
+        });
+        Route::name('blog.show')->middleware(SubstituteBindings::class)->get('/blog/{post}', function (Post $post) {
+        });
+        Route::name('blog.edit')->middleware(SubstituteBindings::class)->get('/blog/{post}/edit', function (Post $post) {
+        });
+        Route::name('blog.update')->middleware(SubstituteBindings::class)->put('/blog/{post}', function (Post $post) {
+        });
+        Route::name('blog.destroy')->middleware(SubstituteBindings::class)->delete('/blog/{post}', function (Post $post) {
+        });
 
         // Breadcrumbs
         Breadcrumbs::macro('resource', function ($name, $title) {

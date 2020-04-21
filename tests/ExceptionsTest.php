@@ -15,8 +15,10 @@ class ExceptionsTest extends TestCase
         $this->expectException(\BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException::class);
         $this->expectExceptionMessage('Breadcrumb name "duplicate" has already been registered');
 
-        Breadcrumbs::for('duplicate', function () { });
-        Breadcrumbs::for('duplicate', function () { });
+        Breadcrumbs::for('duplicate', function () {
+        });
+        Breadcrumbs::for('duplicate', function () {
+        });
     }
 
     public function testInvalidBreadcrumbException()
