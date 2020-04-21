@@ -21,13 +21,13 @@
     },
     "autoload": {
         "psr-4": {
-            "DaveJamesMiller\\Breadcrumbs\\": "src/"
+            "BabDev\\Breadcrumbs\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "App\\": "tests/",
-            "BreadcrumbsTests\\": "tests/"
+            "BabDev\\Breadcrumbs\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
@@ -38,10 +38,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DaveJamesMiller\\Breadcrumbs\\BreadcrumbsServiceProvider"
+                "BabDev\\Breadcrumbs\\BreadcrumbsServiceProvider"
             ],
             "aliases": {
-                "Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs"
+                "Breadcrumbs": "BabDev\\Breadcrumbs\\Facades\\Breadcrumbs"
             }
         }
     }

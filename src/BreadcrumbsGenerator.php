@@ -1,8 +1,8 @@
 <?php
 
-namespace DaveJamesMiller\Breadcrumbs;
+namespace BabDev\Breadcrumbs;
 
-use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
+use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use Illuminate\Support\Collection;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace BreadcrumbsTests\Models;
+namespace BabDev\Breadcrumbs\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

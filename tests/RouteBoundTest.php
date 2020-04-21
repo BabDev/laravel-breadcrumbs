@@ -1,9 +1,9 @@
 <?php
 
-namespace BreadcrumbsTests;
+namespace BabDev\Breadcrumbs\Tests;
 
 use Breadcrumbs;
-use BreadcrumbsTests\Models\Post;
+use BabDev\Breadcrumbs\Tests\Models\Post;
 use Config;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Route;

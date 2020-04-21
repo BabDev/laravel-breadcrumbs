@@ -1,6 +1,6 @@
 <?php
 
-namespace BreadcrumbsTests;
+namespace BabDev\Breadcrumbs\Tests;
 
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;

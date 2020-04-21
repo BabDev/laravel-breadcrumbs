@@ -1,6 +1,6 @@
 <?php
 
-namespace BreadcrumbsTests;
+namespace BabDev\Breadcrumbs\Tests;
 
 class SkipFileLoadingTest extends TestCase
 {

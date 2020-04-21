@@ -1,6 +1,6 @@
 <?php
 
-namespace BreadcrumbsTests;
+namespace BabDev\Breadcrumbs\Tests;
 
 use Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;

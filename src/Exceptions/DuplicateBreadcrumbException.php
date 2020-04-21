@@ -1,8 +1,8 @@
 <?php
 
-namespace DaveJamesMiller\Breadcrumbs\Exceptions;
+namespace BabDev\Breadcrumbs\Exceptions;
 
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsException;
+use BabDev\Breadcrumbs\BreadcrumbsException;
 use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 /**
  * Exception that is thrown if the user attempts to register two breadcrumbs with the same name.
  *
- * @see \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager::register()
+ * @see \BabDev\Breadcrumbs\BreadcrumbsManager::register()
  */
 class DuplicateBreadcrumbException extends BreadcrumbsException implements ProvidesSolution
 {
@@ -41,8 +41,8 @@ class DuplicateBreadcrumbException extends BreadcrumbsException implements Provi
         }
 
         $links = [];
-        $links['Defining breadcrumbs'] = 'https://github.com/davejamesmiller/laravel-breadcrumbs#defining-breadcrumbs';
-        $links['Laravel Breadcrumbs documentation'] = 'https://github.com/davejamesmiller/laravel-breadcrumbs#laravel-breadcrumbs';
+        $links['Defining breadcrumbs'] = 'https://github.com/BabDev/laravel-breadcrumbs#defining-breadcrumbs';
+        $links['Laravel Breadcrumbs documentation'] = 'https://github.com/BabDev/laravel-breadcrumbs#laravel-breadcrumbs';
 
         return BaseSolution::create('Remove the duplicate breadcrumb')
             ->setSolutionDescription($description)
