@@ -90,24 +90,6 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     }
 
     /**
-     * Register a breadcrumb-generating callback for a page.
-     *
-     * For backwards-compatibility with v5.0.0 and below.
-     *
-     * @param  string                                                      $name     The name of the page.
-     * @param  callable                                                    $callback The callback, which should accept a Generator instance as the first parameter and may
-     *                                                                               accept additional parameters.
-     * @return void
-     * @throws \BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
-     *                                                                              used.
-     * @see self::for()
-     */
-    public function register(string $name, callable $callback): void
-    {
-        $this->for($name, $callback);
-    }
-
-    /**
      * Register a closure to call before generating breadcrumbs for the current page.
      *
      * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
