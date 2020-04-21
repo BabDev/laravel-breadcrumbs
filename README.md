@@ -1,15 +1,3 @@
-**As of 18 April 2020, Laravel Breadcrumbs is not being maintained.**
-
-It will probably keep working for a while - I [removed the version constraint](#v532-mon-30-dec-2019) from `composer.json`, so it will keep working until a future version of Laravel makes breaking changes.
-
-If you want to create your own fork, to fix bugs or add new features, please see [the instructions below](#creating-a-pull-request). The [MIT license](#license) requires you to keep the copyright notice and license information, but otherwise you can do what you like with the code and documentation.
-
-Thanks to the [contributors](https://github.com/davejamesmiller/laravel-breadcrumbs/graphs/contributors) who helped maintain it and add features over the last 7 years - I just don't have the energy for maintaining open source projects (or writing blog posts, or for social media) that I did in 2013, and I've decided it's time to focus on new projects instead.
-
-— *Dave*
-
----
-
  ![](logo.svg)  
  Laravel Breadcrumbs
 ================================================================================
@@ -23,6 +11,8 @@ Thanks to the [contributors](https://github.com/davejamesmiller/laravel-breadcru
 [![Coverage Status](https://coveralls.io/repos/github/davejamesmiller/laravel-breadcrumbs/badge.svg?branch=master)](https://coveralls.io/github/davejamesmiller/laravel-breadcrumbs?branch=master)
 
 A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
+
+This package is a continuation of the [davejamesmiller/laravel-breadcrumbs](https://github.com/davejamesmiller/laravel-breadcrumbs) package.
 
 
  Table of Contents
