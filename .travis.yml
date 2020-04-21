@@ -1,36 +1,41 @@
-dist: bionic
-sudo: false
+dist: xenial
 language: php
+sudo: false
+
+env:
+  global:
+    - COMPOSER_FLAGS="--prefer-stable"
+
+matrix:
+  include:
+    - php: 7.2
+      env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" LARAVEL_VERSION="^6.0"
+    - php: 7.3
+      env: LARAVEL_VERSION="^6.0"
+    - php: 7.3
+      env: LARAVEL_VERSION="^7.0"
+    - php: 7.4
+      # This empty flag removes the prefer-stable switch to cause dev dependencies to be installed
+      env: COMPOSER_FLAGS="" LARAVEL_VERSION="^7.0"
+    - php: 7.4
+      env: LARAVEL_VERSION="^7.0"
+    - php: nightly
+      env: LARAVEL_VERSION="^7.0"
+  allow_failures:
+    - php: nightly
+      env: LARAVEL_VERSION="^7.0"
 
 cache:
   directories:
-    - $HOME/.composer/cache/files
+    - $HOME/.composer/cache
 
-php:
-  - 7.4
-  - 7.3
-  - 7.2
-  - 7.1
+before_install:
+  - phpenv config-rm xdebug.ini || true
+  - travis_retry composer self-update
 
-env:
-  matrix:
-    - Laravel=7.x
-    - Laravel=6.x
-    - Laravel=5.8.x
-    - Laravel=5.7.x
-    - Laravel=5.6.x
-
-matrix:
-  exclude:
-    # Unsupported combinations
-    - { env: Laravel=7.x, php: 7.1 }
-    - { env: Laravel=6.x, php: 7.1 }
-
-install:
-  - travis_retry composer require --dev "laravel/framework:${Laravel}" --no-interaction
+before_script:
+  - travis_retry composer require --no-update laravel/framework:${LARAVEL_VERSION}
+  - travis_retry composer update $COMPOSER_FLAGS
 
 script:
-  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
-after_success:
-  - travis_retry php vendor/bin/php-coveralls -v
+  - vendor/bin/phpunit
