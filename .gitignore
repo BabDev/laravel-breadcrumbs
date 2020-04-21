@@ -1,12 +1,6 @@
-# PHP packages
 /composer.lock
-/vendor/
-
-# Test output
+/vendor
+/.idea
+/.php_cs.cache
 /.phpunit.result.cache
-/build/
-/test-coverage/
-/tests/storage/
-
-# Operating system files
-.DS_Store
+/phpunit.xml
