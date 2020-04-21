@@ -2,20 +2,21 @@
 
 namespace BabDev\Breadcrumbs;
 
+use BabDev\Breadcrumbs\Contracts\BreadcrumbsManager as BreadcrumbsManagerContract;
 use BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use BabDev\Breadcrumbs\Exceptions\UnnamedRouteException;
 use BabDev\Breadcrumbs\Exceptions\ViewNotSetException;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
 
 /**
  * The main Breadcrumbs singleton class, responsible for registering, generating and rendering breadcrumbs.
  */
-class BreadcrumbsManager
+class BreadcrumbsManager implements BreadcrumbsManagerContract
 {
     use Macroable;
 
@@ -62,14 +63,14 @@ class BreadcrumbsManager
     }
 
     /**
-     * Register a breadcrumb-generating callback for a page.
+     * Registers a breadcrumb-generating callback.
      *
-     * @param string $name The name of the page.
-     * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
-     *     accept additional parameters.
+     * @param string   $name     The name of the page.
+     * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may accept additional parameters.
+     *
      * @return void
-     * @throws \BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
-     *     used.
+     *
+     * @throws DuplicateBreadcrumbException if the given name has already been used.
      */
     public function for(string $name, callable $callback): void
     {
@@ -85,12 +86,12 @@ class BreadcrumbsManager
      *
      * For backwards-compatibility with v5.0.0 and below.
      *
-     * @param string $name The name of the page.
-     * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
-     *     accept additional parameters.
+     * @param  string                                                      $name     The name of the page.
+     * @param  callable                                                    $callback The callback, which should accept a Generator instance as the first parameter and may
+     *                                                                               accept additional parameters.
      * @return void
      * @throws \BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
-     *     used.
+     *                                                                              used.
      * @see self::for()
      */
     public function register(string $name, callable $callback): void
@@ -101,9 +102,8 @@ class BreadcrumbsManager
     /**
      * Register a closure to call before generating breadcrumbs for the current page.
      *
-     * For example, this can be used to always prepend the homepage without needing to manually add it to each page.
-     *
      * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
+     *
      * @return void
      */
     public function before(callable $callback): void
@@ -114,9 +114,8 @@ class BreadcrumbsManager
     /**
      * Register a closure to call after generating breadcrumbs for the current page.
      *
-     * For example, this can be used to append the current page number when using pagination.
-     *
      * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
+     *
      * @return void
      */
     public function after(callable $callback): void
@@ -127,14 +126,13 @@ class BreadcrumbsManager
     /**
      * Check if a breadcrumb with the given name exists.
      *
-     * If no name is given, defaults to the current route name.
+     * @param string|null $name The page name, defaults to the current route name.
      *
-     * @param string|null $name The page name.
-     * @return bool Whether there is a registered callback with that name.
+     * @return bool
      */
-    public function exists(string $name = null): bool
+    public function exists(?string $name = null): bool
     {
-        if (is_null($name)) {
+        if (null === $name) {
             try {
                 [$name] = $this->getCurrentRoute();
             } catch (UnnamedRouteException $e) {
@@ -148,15 +146,15 @@ class BreadcrumbsManager
     /**
      * Generate a set of breadcrumbs for a page.
      *
-     * @param string|null $name The name of the current page.
-     * @param mixed ...$params The parameters to pass to the closure for the current page.
-     * @return \Illuminate\Support\Collection The generated breadcrumbs.
-     * @throws \BabDev\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route
-     *     doesn't have an associated name.
-     * @throws \BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names
-     *     are) not registered.
+     * @param string|null $name      The page name, defaults to the current route name.
+     * @param mixed       ...$params The parameters to pass to the closure for the current page.
+     *
+     * @return Collection
+     *
+     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
+     * @throws UnnamedRouteException      if no name is given and the current route doesn't have an associated name
      */
-    public function generate(string $name = null, ...$params): Collection
+    public function generate(?string $name = null, ...$params): Collection
     {
         $origName = $name;
 
@@ -169,7 +167,7 @@ class BreadcrumbsManager
                     throw $e;
                 }
 
-                return new Collection;
+                return new Collection();
             }
         }
 
@@ -179,6 +177,7 @@ class BreadcrumbsManager
         } catch (InvalidBreadcrumbException $e) {
             if ($origName === null && config('breadcrumbs.missing-route-bound-breadcrumb-exception')) {
                 $e->setIsRouteBound();
+
                 throw $e;
             }
 
@@ -186,43 +185,48 @@ class BreadcrumbsManager
                 throw $e;
             }
 
-            return new Collection;
+            return new Collection();
         }
     }
 
     /**
      * Render breadcrumbs for a page with the specified view.
      *
-     * @param string $view The name of the view to render.
-     * @param string|null $name The name of the current page.
-     * @param mixed ...$params The parameters to pass to the closure for the current page.
-     * @return \Illuminate\Support\HtmlString The generated HTML.
-     * @throws \BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
-     * @throws \BabDev\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws \BabDev\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
+     * @param string      $view      The name of the view to render.
+     * @param string|null $name      The page name, defaults to the current route name.
+     * @param mixed       ...$params The parameters to pass to the closure for the current page.
+     *
+     * @return View
+     *
+     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
+     * @throws UnnamedRouteException      if no name is given and the current route doesn't have an associated name
+     * @throws ViewNotSetException        if no view has been set
      */
-    public function view(string $view, string $name = null, ...$params): HtmlString
+    public function view(string $view, ?string $name = null, ...$params): View
     {
         $breadcrumbs = $this->generate($name, ...$params);
 
-        // TODO: After dropping support for Laravel 5.8 and below, change this to return the view directly
-        // https://github.com/laravel/framework/pull/29600
-        $html = $this->viewFactory->make($view, compact('breadcrumbs'))->render();
-
-        return new HtmlString($html);
+        return $this->viewFactory->make(
+            $view,
+            [
+                'breadcrumbs' => $this->generate($name, ...$params),
+            ]
+        );
     }
 
     /**
      * Render breadcrumbs for a page with the default view.
      *
-     * @param string|null $name The name of the current page.
-     * @param mixed ...$params The parameters to pass to the closure for the current page.
-     * @return \Illuminate\Support\HtmlString The generated HTML.
-     * @throws \BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
-     * @throws \BabDev\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws \BabDev\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
+     * @param string|null $name      The page name, defaults to the current route name.
+     * @param mixed       ...$params The parameters to pass to the closure for the current page.
+     *
+     * @return View
+     *
+     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
+     * @throws UnnamedRouteException      if no name is given and the current route doesn't have an associated name
+     * @throws ViewNotSetException        if no view has been set
      */
-    public function render(string $name = null, ...$params): HtmlString
+    public function render(?string $name = null, ...$params): View
     {
         $view = config('breadcrumbs.view');
 
@@ -236,11 +240,10 @@ class BreadcrumbsManager
     /**
      * Get the last breadcrumb for the current page.
      *
-     * Optionally pass a
+     * @return object|null The breadcrumb for the current page.
      *
-     * @return \stdClass|null The breadcrumb for the current page.
-     * @throws \BabDev\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
-     * @throws \BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
+     * @throws UnnamedRouteException      if the current route doesn't have an associated name
      */
     public function current(): ?\stdClass
     {
@@ -259,7 +262,8 @@ class BreadcrumbsManager
      * ```
      *
      * @return array A two-element array consisting of the route name (string) and any parameters (array).
-     * @throws \BabDev\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
+     *
+     * @throws UnnamedRouteException if the current route doesn't have an associated name
      */
     protected function getCurrentRoute()
     {
@@ -284,7 +288,7 @@ class BreadcrumbsManager
         }
 
         // Get the current route parameters
-        $params = array_values($route->parameters());
+        $params = \array_values($route->parameters());
 
         return [$name, $params];
     }
@@ -292,8 +296,9 @@ class BreadcrumbsManager
     /**
      * Set the current route name and parameters to use when calling render() or generate() with no parameters.
      *
-     * @param string $name The name of the current page.
-     * @param mixed ...$params The parameters to pass to the closure for the current page.
+     * @param string $name      The name of the current page.
+     * @param mixed  ...$params The parameters to pass to the closure for the current page.
+     *
      * @return void
      */
     public function setCurrentRoute(string $name, ...$params): void
