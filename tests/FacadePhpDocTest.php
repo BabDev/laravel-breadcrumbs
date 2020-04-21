@@ -2,8 +2,8 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
-use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+use BabDev\Breadcrumbs\BreadcrumbsManager;
+use BabDev\Breadcrumbs\Facades\Breadcrumbs;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use ReflectionClass;

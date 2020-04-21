@@ -3,9 +3,9 @@
 namespace BabDev\Breadcrumbs\Tests;
 
 use Breadcrumbs;
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
+use BabDev\Breadcrumbs\BreadcrumbsGenerator;
+use BabDev\Breadcrumbs\BreadcrumbsManager;
+use BabDev\Breadcrumbs\BreadcrumbsServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class CustomPackageServiceProviderTest extends TestCase

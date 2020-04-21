@@ -2,8 +2,8 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
-use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+use BabDev\Breadcrumbs\BreadcrumbsServiceProvider;
+use BabDev\Breadcrumbs\Facades\Breadcrumbs;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 

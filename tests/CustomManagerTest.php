@@ -4,7 +4,7 @@ namespace BabDev\Breadcrumbs\Tests;
 
 use Breadcrumbs;
 use Config;
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
+use BabDev\Breadcrumbs\BreadcrumbsManager;
 use Illuminate\Support\Collection;
 use Route;
 use URL;
