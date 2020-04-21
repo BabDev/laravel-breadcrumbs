@@ -15,12 +15,16 @@ use Illuminate\Support\Collection;
 class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
 {
     /**
-     * @var Collection Breadcrumbs currently being generated.
+     * Breadcrumbs currently being generated.
+     *
+     * @var Collection
      */
     protected $breadcrumbs;
 
     /**
-     * @var array The registered breadcrumb-generating callbacks.
+     * The registered breadcrumb-generating callbacks.
+     *
+     * @var array
      */
     protected $callbacks = [];
 

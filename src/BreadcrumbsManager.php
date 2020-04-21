@@ -36,22 +36,30 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     protected $viewFactory;
 
     /**
-     * @var array The registered breadcrumb-generating callbacks.
+     * The registered breadcrumb-generating callbacks.
+     *
+     * @var array
      */
     protected $callbacks = [];
 
     /**
-     * @var array Closures to call before generating breadcrumbs for the current page.
+     * Closures to call before generating breadcrumbs for the current page.
+     *
+     * @var array
      */
     protected $before = [];
 
     /**
-     * @var array Closures to call after generating breadcrumbs for the current page.
+     * Closures to call after generating breadcrumbs for the current page.
+     *
+     * @var array
      */
     protected $after = [];
 
     /**
-     * @var array|null The current route name and parameters.
+     * The current route name and parameters.
+     *
+     * @var array|null
      */
     protected $route;
 

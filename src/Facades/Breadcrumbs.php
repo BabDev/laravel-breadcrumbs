@@ -3,24 +3,22 @@
 namespace BabDev\Breadcrumbs\Facades;
 
 use BabDev\Breadcrumbs\BreadcrumbsManager;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Traits\Macroable;
 
 /**
- * Breadcrumbs facade - allows easy access to the Manager instance.
- *
  * @method static void for(string $name, callable $callback)
- * @method static void register(string $name, callable $callback)
  * @method static void before(callable $callback)
  * @method static void after(callable $callback)
- * @method static bool exists(string $name = NULL)
- * @method static \Illuminate\Support\Collection generate(string $name = NULL, ...$params)
- * @method static \Illuminate\Support\HtmlString view(string $view, string $name = NULL, ...$params)
- * @method static \Illuminate\Support\HtmlString render(string $name = NULL, ...$params)
- * @method static \stdClass|null current()
- * @method static array getCurrentRoute()
- * @method static void setCurrentRoute(string $name, ...$params)
- * @method static void clearCurrentRoute()
- * @mixin \Illuminate\Support\Traits\Macroable
+ * @method static bool exists(?string $name = null)
+ * @method static Collection generate(?string $name = null, ...$params)
+ * @method static View view(string $view, ?string $name = null, ...$params)
+ * @method static View render(?string $name = null, ...$params)
+ * @method static object|null current()
+ *
+ * @mixin Macroable
  * @see BreadcrumbsManager
  */
 class Breadcrumbs extends Facade
@@ -32,6 +30,6 @@ class Breadcrumbs extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return BreadcrumbsManager::class;
+        return 'breadcrumbs.manager';
     }
 }
