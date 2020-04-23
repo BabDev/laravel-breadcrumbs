@@ -42,7 +42,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrablePr
 
         $this->publishes(
             [
-                __DIR__ . '/../../config/breadcrumbs.php' => config_path('breadcrumbs.php'),
+                __DIR__ . '/../../config/breadcrumbs.php' => $this->app->configPath('breadcrumbs.php'),
             ],
             'config'
         );
@@ -50,7 +50,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrablePr
         if ($this->app->runningInConsole()) {
             $this->publishes(
                 [
-                    __DIR__ . '/resources/views' => resource_path('views/vendor/pagination'),
+                    __DIR__ . '/resources/views' => $this->app->resourcePath('views/vendor/pagination'),
                 ],
                 'laravel-breadcrumbs'
             );
@@ -136,7 +136,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrablePr
         }
 
         // If it is set to the default value and that file doesn't exist, skip loading it rather than causing an error
-        if ($files === base_path('routes/breadcrumbs.php') && ! \is_file($files)) {
+        if ($files === $app->basePath('routes/breadcrumbs.php') && ! \is_file($files)) {
             return;
         }
 
