@@ -7,11 +7,13 @@ use BabDev\Breadcrumbs\BreadcrumbsManager;
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator as BreadcrumbsGeneratorContract;
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsManager as BreadcrumbsManagerContract;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 
-class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrableProvider
+final class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Get the services provided by the provider.
@@ -109,40 +111,37 @@ class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrablePr
 
         $this->callAfterResolving(
             'breadcrumbs.manager',
-            function (BreadcrumbsManagerContract $manager, Application $app): void {
-                $this->registerBreadcrumbs($manager, $app);
+            static function (BreadcrumbsManagerContract $manager, Application $app): void {
+                /** @var Repository $config */
+                $config = $app->make('config');
+
+                // Load the routes/breadcrumbs.php file, or other configured file(s)
+                $files = $config->get('breadcrumbs.files');
+
+                if (!$files) {
+                    return;
+                }
+
+                /** @var Filesystem $filesystem */
+                $filesystem = $app->make('files');
+
+                // If it is set to the default value and that file doesn't exist, skip loading it rather than causing an error
+                if ($files === $app->basePath('routes/breadcrumbs.php') && !$filesystem->exists($files)) {
+                    return;
+                }
+
+                // Support both a single string filename and an array of filenames (e.g. returned by glob())
+                foreach ((array) $files as $file) {
+                    if (!$filesystem->exists($file)) {
+                        throw new FileNotFoundException(\sprintf('The breadcrumb file "%s" does not exist.', $file));
+                    }
+
+                    require $file;
+                }
             }
         );
 
         $this->app->alias('breadcrumbs.manager', BreadcrumbsManagerContract::class);
         $this->app->alias('breadcrumbs.manager', BreadcrumbsManager::class);
-    }
-
-    /**
-     * Load the routes/breadcrumbs.php file (if it exists) which registers available breadcrumbs.
-     *
-     * @return void
-     */
-    protected function registerBreadcrumbs(BreadcrumbsManagerContract $breadcrumbs, Application $app): void
-    {
-        /** @var Repository $config */
-        $config = $app->make('config');
-
-        // Load the routes/breadcrumbs.php file, or other configured file(s)
-        $files = $config->get('breadcrumbs.files');
-
-        if (!$files) {
-            return;
-        }
-
-        // If it is set to the default value and that file doesn't exist, skip loading it rather than causing an error
-        if ($files === $app->basePath('routes/breadcrumbs.php') && ! \is_file($files)) {
-            return;
-        }
-
-        // Support both a single string filename and an array of filenames (e.g. returned by glob())
-        foreach ((array) $files as $file) {
-            require $file;
-        }
     }
 }
