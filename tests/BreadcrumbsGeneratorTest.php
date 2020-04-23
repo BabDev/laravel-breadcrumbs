@@ -126,6 +126,53 @@ class BreadcrumbsGeneratorTest extends TestCase
         );
     }
 
+    public function testGeneratesABreadcrumbWithARecursiveCallback(): void
+    {
+        $category1 = (object) ['id' => 1, 'title' => 'Category 1', 'parent' => null];
+        $category2 = (object) ['id' => 2, 'title' => 'Category 2', 'parent' => $category1];
+        $category3 = (object) ['id' => 3, 'title' => 'Category 3', 'parent' => $category2];
+
+        $callbacks = [
+            'blog' => static function (BreadcrumbsGeneratorContract $trail): void {
+                $trail->push('Blog', '/blog');
+            },
+            'category' => static function (BreadcrumbsGeneratorContract $trail, object $category): void {
+                if ($category->parent) {
+                    $trail->parent('category', $category->parent);
+                } else {
+                    $trail->parent('blog');
+                }
+
+                $trail->push($category->title, sprintf('/category/%s', $category->id));
+            },
+        ];
+
+        $breadcrumbs = (new BreadcrumbsGenerator())->generate($callbacks, [], [], 'category', [$category3]);
+
+        $this->assertCount(4, $breadcrumbs);
+        $this->assertEquals(
+            [
+                (object) [
+                    'title' => 'Blog',
+                    'url' => '/blog',
+                ],
+                (object) [
+                    'title' => 'Category 1',
+                    'url' => '/category/1',
+                ],
+                (object) [
+                    'title' => 'Category 2',
+                    'url' => '/category/2',
+                ],
+                (object) [
+                    'title' => 'Category 3',
+                    'url' => '/category/3',
+                ],
+            ],
+            $breadcrumbs->toArray()
+        );
+    }
+
     public function testDoesNotGenerateABreadcrumbForAnUnknownName(): void
     {
         $this->expectException(InvalidBreadcrumbException::class);
