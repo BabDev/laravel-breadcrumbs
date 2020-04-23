@@ -2,10 +2,7 @@
 
 namespace BabDev\Breadcrumbs\Tests;
 
-use BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
-use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use BabDev\Breadcrumbs\Exceptions\UnnamedRouteException;
-use BabDev\Breadcrumbs\Exceptions\ViewNotSetException;
 use Breadcrumbs;
 use Config;
 use ErrorException;
@@ -31,22 +28,6 @@ class IgnitionTest extends TestCase
             'Single config file' => [['routes/breadcrumbs.php']],
             'Multiple config files' => [['breadcrumbs/file1.php', 'breadcrumbs/file2.php']],
         ];
-    }
-
-    public function testViewNotSetSolution()
-    {
-        Config::set('breadcrumbs.view', '');
-
-        Breadcrumbs::for('home', function ($trail) {
-            $trail->push('Home', url('/'));
-        });
-
-        try {
-            Breadcrumbs::render('home');
-            $this->fail('No exception thrown');
-        } catch (ViewNotSetException $e) {
-            $this->assertSolutionMatchesSnapshot($e);
-        }
     }
 
     public function testUnnamedClosureRouteSolution()
