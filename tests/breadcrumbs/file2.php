@@ -1,5 +1,10 @@
 <?php
+/*
+ * Breadcrumbs file which utilizes the facade
+ */
 
-Breadcrumbs::for('multiple-file-test-parent', function ($trail) {
+use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator;
+
+Breadcrumbs::for('multiple-file-test-parent', static function (BreadcrumbsGenerator $trail): void {
     $trail->push('Parent');
 });

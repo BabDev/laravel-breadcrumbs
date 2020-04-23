@@ -4,6 +4,7 @@ namespace BabDev\Breadcrumbs\Tests\Providers;
 
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator;
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsManager;
+use BabDev\Breadcrumbs\Facades\Breadcrumbs;
 use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Orchestra\Testbench\TestCase;
@@ -14,6 +15,13 @@ class BreadcrumbsServiceProviderTest extends TestCase
     {
         return [
             BreadcrumbsServiceProvider::class,
+        ];
+    }
+
+    protected function getPackageAliases($app)
+    {
+        return [
+            'Breadcrumbs' => Breadcrumbs::class,
         ];
     }
 
@@ -50,7 +58,7 @@ class BreadcrumbsServiceProviderTest extends TestCase
 
     public function testTheManagerIsResolvedWhenThereAreFiles(): void
     {
-        $this->app['config']->set('breadcrumbs.files', [__DIR__.'/../routes/breadcrumbs.php']);
+        $this->app['config']->set('breadcrumbs.files', \glob(__DIR__ . '/../breadcrumbs/*.php'));
 
         $this->assertInstanceOf(BreadcrumbsManager::class, $this->app->make('breadcrumbs.manager'));
     }
