@@ -73,7 +73,7 @@ class BreadcrumbsGeneratorTest extends TestCase
         );
     }
 
-    public function testGeneratesABreadcrumbWithAParent(): void
+    public function testGeneratesABreadcrumbWithAParentAndAnItemWithNoUrl(): void
     {
         $callbacks = [
             'home' => static function (BreadcrumbsGeneratorContract $trail): void {
@@ -81,7 +81,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
             'blog' => static function (BreadcrumbsGeneratorContract $trail): void {
                 $trail->parent('home');
-                $trail->push('Blog', '/blog');
+                $trail->push('Blog');
             },
         ];
 
@@ -96,7 +96,30 @@ class BreadcrumbsGeneratorTest extends TestCase
                 ],
                 (object) [
                     'title' => 'Blog',
+                    'url' => null,
+                ],
+            ],
+            $breadcrumbs->toArray()
+        );
+    }
+
+    public function testGeneratesABreadcrumbWithCustomAttributes(): void
+    {
+        $callbacks = [
+            'blog' => static function (BreadcrumbsGeneratorContract $trail): void {
+                $trail->push('Blog', '/blog', ['icon' => 'blog']);
+            },
+        ];
+
+        $breadcrumbs = (new BreadcrumbsGenerator())->generate($callbacks, [], [], 'blog', []);
+
+        $this->assertCount(1, $breadcrumbs);
+        $this->assertEquals(
+            [
+                (object) [
+                    'title' => 'Blog',
                     'url' => '/blog',
+                    'icon' => 'blog',
                 ],
             ],
             $breadcrumbs->toArray()

@@ -10,33 +10,6 @@ use Route;
 
 class AdvancedUsageTest extends TestCase
 {
-    public function testBreadcrumbsWithNoUrl()
-    {
-        Breadcrumbs::for('sample', function ($trail) {
-            $trail->push('Sample');
-        });
-
-        $breadcrumbs = Breadcrumbs::generate('sample');
-
-        $this->assertCount(1, $breadcrumbs);
-        $this->assertSame('Sample', $breadcrumbs[0]->title);
-        $this->assertNull($breadcrumbs[0]->url);
-    }
-
-    public function testCustomData()
-    {
-        Breadcrumbs::for('home', function ($trail) {
-            $trail->push('Home', '/', ['icon' => 'home.png']);
-        });
-
-        $breadcrumbs = Breadcrumbs::generate('home');
-
-        $this->assertCount(1, $breadcrumbs);
-        $this->assertSame('Home', $breadcrumbs[0]->title);
-        $this->assertSame('/', $breadcrumbs[0]->url);
-        $this->assertSame('home.png', $breadcrumbs[0]->icon);
-    }
-
     public function testBeforeAndAfterCallbacks()
     {
         Breadcrumbs::before(function ($trail) {
