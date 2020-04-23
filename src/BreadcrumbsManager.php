@@ -82,7 +82,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      */
     public function for(string $name, callable $callback): void
     {
-        if (isset($this->callbacks[$name])) {
+        if ($this->exists($name)) {
             throw new DuplicateBreadcrumbException($name);
         }
 
