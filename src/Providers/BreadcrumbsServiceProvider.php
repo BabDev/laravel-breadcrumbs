@@ -2,6 +2,7 @@
 
 namespace BabDev\Breadcrumbs\Providers;
 
+use BabDev\Breadcrumbs\BreadcrumbFileRegistrar;
 use BabDev\Breadcrumbs\BreadcrumbsGenerator;
 use BabDev\Breadcrumbs\BreadcrumbsManager;
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator as BreadcrumbsGeneratorContract;
@@ -136,7 +137,7 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
                         throw new FileNotFoundException(\sprintf('The breadcrumb file "%s" does not exist.', $file));
                     }
 
-                    require $file;
+                    (new BreadcrumbFileRegistrar($manager))->register($file);
                 }
             }
         );
