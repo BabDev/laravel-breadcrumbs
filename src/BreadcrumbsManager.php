@@ -166,7 +166,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
             return $this->generator->generate($this->callbacks, $this->before, $this->after, $name, $params);
         } catch (InvalidBreadcrumbException $e) {
             if ($origName === null && config('breadcrumbs.missing-route-bound-breadcrumb-exception')) {
-                $e->setIsRouteBound();
+                $e->routeIsBounded();
 
                 throw $e;
             }

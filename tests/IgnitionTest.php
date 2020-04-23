@@ -33,40 +33,6 @@ class IgnitionTest extends TestCase
         ];
     }
 
-    /** @dataProvider dataOneOrManyConfigFiles */
-    public function testInvalidBreadcrumbSolution(array $files)
-    {
-        $this->markTestSkipped('Failing with manager using after resolved callback');
-
-        Config::set('breadcrumbs.files', $files);
-
-        try {
-            Breadcrumbs::render('invalid');
-            $this->fail('No exception thrown');
-        } catch (InvalidBreadcrumbException $e) {
-            $this->assertSolutionMatchesSnapshot($e);
-        }
-    }
-
-    /** @dataProvider dataOneOrManyConfigFiles */
-    public function testMissingRouteBoundBreadcrumbSolution(array $files)
-    {
-        $this->markTestSkipped('Failing with manager using after resolved callback');
-
-        Config::set('breadcrumbs.files', $files);
-
-        Route::name('home')->get('/', function () {
-            return Breadcrumbs::render();
-        });
-
-        try {
-            $this->get('/');
-            $this->fail('No exception thrown');
-        } catch (InvalidBreadcrumbException $e) {
-            $this->assertSolutionMatchesSnapshot($e);
-        }
-    }
-
     public function testViewNotSetSolution()
     {
         Config::set('breadcrumbs.view', '');

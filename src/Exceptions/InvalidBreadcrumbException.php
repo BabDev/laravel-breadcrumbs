@@ -5,8 +5,7 @@ namespace BabDev\Breadcrumbs\Exceptions;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
 use Facade\IgnitionContracts\Solution;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
 
 /**
@@ -14,19 +13,26 @@ use Illuminate\Support\Str;
  */
 class InvalidBreadcrumbException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
+    /**
+     * @var string
+     */
     private $name;
-    private $isRouteBound = false;
 
-    public function __construct($name)
+    /**
+     * @var bool
+     */
+    private $routeIsBounded = false;
+
+    public function __construct(string $name)
     {
-        parent::__construct("Breadcrumb not found with name \"{$name}\"");
+        parent::__construct(sprintf('Breadcrumb not found with name "%s"', $name));
 
         $this->name = $name;
     }
 
-    public function setIsRouteBound()
+    public function routeIsBounded(): void
     {
-        $this->isRouteBound = true;
+        $this->routeIsBounded = true;
     }
 
     public function getSolution(): Solution
@@ -40,33 +46,35 @@ class InvalidBreadcrumbException extends \InvalidArgumentException implements Br
             $file = 'one of the files defined in config/breadcrumbs.php';
         }
 
-        // Determine the current route name
-        $route = Route::current();
-        $routeName = $route ? $route->getName() : null;
+        $route = request()->route();
+        $routeName = $route instanceof Route ? $route->getName() : null;
 
         if ($routeName) {
-            $url = "route('{$this->name}')";
+            $url = sprintf("route('%s')", $this->name);
         } else {
-            $url = "url('" . Request::path() . "')";
+            $url = sprintf("url('%s')", request()->path());
         }
 
         $links = [];
         $links['Defining breadcrumbs'] = 'https://github.com/BabDev/laravel-breadcrumbs#defining-breadcrumbs';
 
-        if ($this->isRouteBound) {
+        if ($this->routeIsBounded) {
             $links['Route-bound breadcrumbs'] = 'https://github.com/BabDev/laravel-breadcrumbs#route-bound-breadcrumbs';
         }
 
         $links['Silencing breadcrumb exceptions'] = 'https://github.com/BabDev/laravel-breadcrumbs#configuration-file';
         $links['Laravel Breadcrumbs documentation'] = 'https://github.com/BabDev/laravel-breadcrumbs#laravel-breadcrumbs';
 
-        return BaseSolution::create("Add this to $file")
-            ->setSolutionDescription("
+        $description = <<<DESC
 ```php
 Breadcrumbs::for('{$this->name}', function (\$trail) {
     \$trail->push('Title Here', $url);
 });
-```")
+```
+DESC;
+
+        return BaseSolution::create(sprintf('Add this to %s', $file))
+            ->setSolutionDescription($description)
             ->setDocumentationLinks($links);
     }
 }
