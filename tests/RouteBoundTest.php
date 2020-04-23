@@ -190,7 +190,7 @@ class RouteBoundTest extends TestCase
     public function testUnnamedRouteException()
     {
         $this->expectException(\BabDev\Breadcrumbs\Exceptions\UnnamedRouteException::class);
-        $this->expectExceptionMessage('The current route (GET /blog) is not named');
+        $this->expectExceptionMessage('The current route "GET /blog" is not named');
 
         Route::get('/blog', function () {
             return Breadcrumbs::render();
@@ -202,7 +202,7 @@ class RouteBoundTest extends TestCase
     public function testUnnamedHomeRouteException()
     {
         $this->expectException(\BabDev\Breadcrumbs\Exceptions\UnnamedRouteException::class);
-        $this->expectExceptionMessage('The current route (GET /) is not named');
+        $this->expectExceptionMessage('The current route "GET /" is not named');
 
         // Make sure the message is "GET /" not "GET //"
         Route::get('/', function () {

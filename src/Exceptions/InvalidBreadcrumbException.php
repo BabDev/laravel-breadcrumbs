@@ -71,7 +71,8 @@ Breadcrumbs::for('{$this->name}', function (\$trail) {
     \$trail->push('Title Here', $url);
 });
 ```
-DESC;
+DESC
+        ;
 
         return BaseSolution::create(sprintf('Add this to %s', $file))
             ->setSolutionDescription($description)
