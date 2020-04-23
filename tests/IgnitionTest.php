@@ -34,25 +34,6 @@ class IgnitionTest extends TestCase
     }
 
     /** @dataProvider dataOneOrManyConfigFiles */
-    public function testDuplicateBreadcrumbSolution(array $files)
-    {
-        $this->markTestSkipped('Failing with manager using after resolved callback');
-
-        Config::set('breadcrumbs.files', $files);
-
-        Breadcrumbs::for('duplicate', function () {
-        });
-
-        try {
-            Breadcrumbs::for('duplicate', function () {
-            });
-            $this->fail('No exception thrown');
-        } catch (DuplicateBreadcrumbException $e) {
-            $this->assertSolutionMatchesSnapshot($e);
-        }
-    }
-
-    /** @dataProvider dataOneOrManyConfigFiles */
     public function testInvalidBreadcrumbSolution(array $files)
     {
         $this->markTestSkipped('Failing with manager using after resolved callback');

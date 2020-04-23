@@ -9,16 +9,17 @@ use Illuminate\Support\Str;
 
 /**
  * Exception that is thrown if the user attempts to register two breadcrumbs with the same name.
- *
- * @see \BabDev\Breadcrumbs\BreadcrumbsManager::register()
  */
 class DuplicateBreadcrumbException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
+    /**
+     * @var string
+     */
     private $name;
 
-    public function __construct($name)
+    public function __construct(string $name)
     {
-        parent::__construct("Breadcrumb name \"{$name}\" has already been registered");
+        parent::__construct(\sprintf('Breadcrumb name "%s" has already been registered', $name));
 
         $this->name = $name;
     }
@@ -34,18 +35,21 @@ class DuplicateBreadcrumbException extends \InvalidArgumentException implements 
             $file = Str::replaceFirst($basePath, '', $file);
         }
 
-        if (\count($files) === 1) {
-            $description = "Look in `$files[0]` for multiple breadcrumbs named `{$this->name}`.";
+        if (\count($files) > 1) {
+            $description = \sprintf('Look in the following files for multiple breadcrumbs named `%s`: %s', $this->name, \implode(', ', $files));
+        } elseif (\count($files) === 1) {
+            $description = \sprintf('Look in `%s` for multiple breadcrumbs named `%s`.', $files[0], $this->name);
         } else {
-            $description = "Look in the following files for multiple breadcrumbs named `{$this->name}`:\n\n- `" . \implode("`\n -`", $files) . '`';
+            $description = \sprintf('Check your application for multiple breadcrumbs named `%s`.', $this->name);
         }
-
-        $links = [];
-        $links['Defining breadcrumbs'] = 'https://github.com/BabDev/laravel-breadcrumbs#defining-breadcrumbs';
-        $links['Laravel Breadcrumbs documentation'] = 'https://github.com/BabDev/laravel-breadcrumbs#laravel-breadcrumbs';
 
         return BaseSolution::create('Remove the duplicate breadcrumb')
             ->setSolutionDescription($description)
-            ->setDocumentationLinks($links);
+            ->setDocumentationLinks(
+                [
+                    'Defining breadcrumbs' => 'https://github.com/BabDev/laravel-breadcrumbs#defining-breadcrumbs',
+                    'Laravel Breadcrumbs documentation' => 'https://github.com/BabDev/laravel-breadcrumbs#laravel-breadcrumbs',
+                ]
+            );
     }
 }
