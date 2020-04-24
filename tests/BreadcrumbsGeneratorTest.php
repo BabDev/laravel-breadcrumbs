@@ -5,7 +5,7 @@ namespace BabDev\Breadcrumbs\Tests;
 use BabDev\Breadcrumbs\BreadcrumbsGenerator;
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator as BreadcrumbsGeneratorContract;
 use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BreadcrumbsGeneratorTest extends TestCase
 {
