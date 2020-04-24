@@ -8,7 +8,6 @@ use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use BabDev\Breadcrumbs\Facades\Breadcrumbs;
 use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider;
 use BabDev\Breadcrumbs\Tests\Models\Post;
-use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Orchestra\Testbench\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -29,32 +28,6 @@ class AdvancedUsageTest extends TestCase
         return [
             'Breadcrumbs' => Breadcrumbs::class,
         ];
-    }
-
-    public function testBeforeAndAfterCallbacks()
-    {
-        \Breadcrumbs::before(static function (BreadcrumbsGenerator $trail): void {
-            $trail->push('Before');
-        });
-
-        \Breadcrumbs::for('home', static function (BreadcrumbsGenerator $trail): void {
-            $trail->push('Home', route('home'));
-        });
-
-        \Breadcrumbs::after(static function (BreadcrumbsGenerator $trail): void {
-            $page = (int) request('page', 1);
-
-            if ($page > 1) {
-                $trail->push("Page $page");
-            }
-        });
-
-        \Route::name('home')
-            ->get('/', static function (): View {
-                return \Breadcrumbs::render('home');
-            });
-
-        $this->assertMatchesHtmlSnapshot($this->get('/?page=2')->content());
     }
 
     public function testCurrentPageBreadcrumb()

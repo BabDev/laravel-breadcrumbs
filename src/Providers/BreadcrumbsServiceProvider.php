@@ -84,7 +84,9 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
         $this->app->bind(
             'breadcrumbs.generator',
             static function (Application $app): BreadcrumbsGeneratorContract {
-                return new BreadcrumbsGenerator();
+                return new BreadcrumbsGenerator(
+                    $app->make('events')
+                );
             }
         );
 

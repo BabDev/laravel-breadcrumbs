@@ -43,20 +43,6 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     protected $callbacks = [];
 
     /**
-     * Closures to call before generating breadcrumbs for the current page.
-     *
-     * @var array
-     */
-    protected $before = [];
-
-    /**
-     * Closures to call after generating breadcrumbs for the current page.
-     *
-     * @var array
-     */
-    protected $after = [];
-
-    /**
      * The current route name and parameters.
      *
      * @var array|null
@@ -87,30 +73,6 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
         }
 
         $this->callbacks[$name] = $callback;
-    }
-
-    /**
-     * Register a closure to call before generating breadcrumbs for the current page.
-     *
-     * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
-     *
-     * @return void
-     */
-    public function before(callable $callback): void
-    {
-        $this->before[] = $callback;
-    }
-
-    /**
-     * Register a closure to call after generating breadcrumbs for the current page.
-     *
-     * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
-     *
-     * @return void
-     */
-    public function after(callable $callback): void
-    {
-        $this->after[] = $callback;
     }
 
     /**
@@ -163,7 +125,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
 
         // Generate breadcrumbs
         try {
-            return $this->generator->generate($this->callbacks, $this->before, $this->after, $name, $params);
+            return $this->generator->generate($this->callbacks, $name, $params);
         } catch (InvalidBreadcrumbException $e) {
             if ($origName === null && config('breadcrumbs.missing-route-bound-breadcrumb-exception')) {
                 $e->routeIsBounded();

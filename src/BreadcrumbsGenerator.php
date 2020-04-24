@@ -3,7 +3,10 @@
 namespace BabDev\Breadcrumbs;
 
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator as BreadcrumbsGeneratorContract;
+use BabDev\Breadcrumbs\Events\AfterBreadcrumbGenerated;
+use BabDev\Breadcrumbs\Events\BeforeBreadcrumbGenerated;
 use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 
 /**
@@ -14,6 +17,13 @@ use Illuminate\Support\Collection;
  */
 class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
 {
+    /**
+     * The event dispatcher.
+     *
+     * @var Dispatcher
+     */
+    protected $dispatcher;
+
     /**
      * Breadcrumbs currently being generated.
      *
@@ -28,12 +38,15 @@ class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
      */
     protected $callbacks = [];
 
+    public function __construct(Dispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * Generate breadcrumbs.
      *
-     * @param callable[] $callbacks The registered breadcrumb-generating closures.
-     * @param callable[] $before    The registered 'before' callbacks.
-     * @param callable[] $after     The registered 'after' callbacks.
+     * @param callable[] $callbacks The registered breadcrumb-generating callbacks.
      * @param string     $name      The name of the current page.
      * @param array      $params    The parameters to pass to the closure for the current page.
      *
@@ -41,20 +54,20 @@ class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
      *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      */
-    public function generate(array $callbacks, array $before, array $after, string $name, array $params): Collection
+    public function generate(array $callbacks, string $name, array $params): Collection
     {
         $this->breadcrumbs = new Collection();
         $this->callbacks = $callbacks;
 
-        foreach ($before as $callback) {
-            $callback($this);
-        }
+        $event = new BeforeBreadcrumbGenerated($this, $name, $params);
+        $this->dispatcher->dispatch($event);
+
+        $name = $event->name;
+        $params = $event->params;
 
         $this->call($name, $params);
 
-        foreach ($after as $callback) {
-            $callback($this);
-        }
+        $this->dispatcher->dispatch(new AfterBreadcrumbGenerated($this, $name, $params));
 
         return $this->breadcrumbs;
     }

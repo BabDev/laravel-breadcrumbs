@@ -24,24 +24,6 @@ interface BreadcrumbsManager
     public function for(string $name, callable $callback): void;
 
     /**
-     * Register a closure to call before generating breadcrumbs for the current page.
-     *
-     * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
-     *
-     * @return void
-     */
-    public function before(callable $callback): void;
-
-    /**
-     * Register a closure to call after generating breadcrumbs for the current page.
-     *
-     * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
-     *
-     * @return void
-     */
-    public function after(callable $callback): void;
-
-    /**
      * Check if a breadcrumb with the given name exists.
      *
      * @param string|null $name The page name, defaults to the current route name.

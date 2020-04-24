@@ -4,7 +4,10 @@ namespace BabDev\Breadcrumbs\Tests;
 
 use BabDev\Breadcrumbs\BreadcrumbsGenerator;
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator as BreadcrumbsGeneratorContract;
+use BabDev\Breadcrumbs\Events\AfterBreadcrumbGenerated;
+use BabDev\Breadcrumbs\Events\BeforeBreadcrumbGenerated;
 use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
+use Illuminate\Contracts\Events\Dispatcher;
 use PHPUnit\Framework\TestCase;
 
 class BreadcrumbsGeneratorTest extends TestCase
@@ -17,7 +20,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator())->generate($callbacks, [], [], 'blog', []);
+        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'blog', []);
 
         $this->assertCount(1, $breadcrumbs);
         $this->assertEquals(
@@ -31,27 +34,31 @@ class BreadcrumbsGeneratorTest extends TestCase
         );
     }
 
-    public function testGeneratesABreadcrumbWithBeforeAndAfterCallbacks(): void
+    public function testGeneratesABreadcrumbWithBeforeAndAfterEvents(): void
     {
+        $dispatcher = $this->createMock(Dispatcher::class);
+
+        $dispatcher->expects($this->at(0))
+            ->method('dispatch')
+            ->with($this->isInstanceOf(BeforeBreadcrumbGenerated::class))
+            ->willReturnCallback(static function (BeforeBreadcrumbGenerated $event): void {
+                $event->breadcrumbs->push('Home', '/');
+            });
+
+        $dispatcher->expects($this->at(1))
+            ->method('dispatch')
+            ->with($this->isInstanceOf(AfterBreadcrumbGenerated::class))
+            ->willReturnCallback(static function (AfterBreadcrumbGenerated $event): void {
+                $event->breadcrumbs->push('Page 2', '/page-2');
+            });
+
         $callbacks = [
             'blog' => static function (BreadcrumbsGeneratorContract $trail): void {
                 $trail->push('Blog', '/blog');
             },
         ];
 
-        $beforeCallbacks = [
-            static function (BreadcrumbsGeneratorContract $trail): void {
-                $trail->push('Home', '/');
-            },
-        ];
-
-        $afterCallbacks = [
-            static function (BreadcrumbsGeneratorContract $trail): void {
-                $trail->push('Page 2', '/page-2');
-            },
-        ];
-
-        $breadcrumbs = (new BreadcrumbsGenerator())->generate($callbacks, $beforeCallbacks, $afterCallbacks, 'blog', []);
+        $breadcrumbs = (new BreadcrumbsGenerator($dispatcher))->generate($callbacks, 'blog', []);
 
         $this->assertCount(3, $breadcrumbs);
         $this->assertEquals(
@@ -85,7 +92,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator())->generate($callbacks, [], [], 'blog', []);
+        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'blog', []);
 
         $this->assertCount(2, $breadcrumbs);
         $this->assertEquals(
@@ -111,7 +118,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator())->generate($callbacks, [], [], 'blog', []);
+        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'blog', []);
 
         $this->assertCount(1, $breadcrumbs);
         $this->assertEquals(
@@ -147,7 +154,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator())->generate($callbacks, [], [], 'category', [$category3]);
+        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'category', [$category3]);
 
         $this->assertCount(4, $breadcrumbs);
         $this->assertEquals(
@@ -177,6 +184,6 @@ class BreadcrumbsGeneratorTest extends TestCase
     {
         $this->expectException(InvalidBreadcrumbException::class);
 
-        (new BreadcrumbsGenerator())->generate([], [], [], 'blog', []);
+        (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate([], 'blog', []);
     }
 }

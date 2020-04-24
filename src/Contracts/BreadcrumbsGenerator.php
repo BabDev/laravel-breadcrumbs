@@ -10,9 +10,7 @@ interface BreadcrumbsGenerator
     /**
      * Generate breadcrumbs.
      *
-     * @param callable[] $callbacks The registered breadcrumb-generating closures.
-     * @param callable[] $before    The registered 'before' callbacks.
-     * @param callable[] $after     The registered 'after' callbacks.
+     * @param callable[] $callbacks The registered breadcrumb-generating callbacks.
      * @param string     $name      The name of the current page.
      * @param array      $params    The parameters to pass to the closure for the current page.
      *
@@ -20,7 +18,7 @@ interface BreadcrumbsGenerator
      *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      */
-    public function generate(array $callbacks, array $before, array $after, string $name, array $params): Collection;
+    public function generate(array $callbacks, string $name, array $params): Collection;
 
     /**
      * Add breadcrumbs for a parent page.
