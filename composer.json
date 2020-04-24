@@ -28,7 +28,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\": "tests/",
             "BabDev\\Breadcrumbs\\Tests\\": "tests/"
         }
     },

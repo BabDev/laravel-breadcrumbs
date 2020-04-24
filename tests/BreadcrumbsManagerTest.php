@@ -105,6 +105,20 @@ class BreadcrumbsManagerTest extends TestCase
         $this->assertTrue($this->manager->exists(null));
     }
 
+    public function testANullCallbackNameChecksIfACallbackExistsForAnUnnamedRoute(): void
+    {
+        $route = new Route(['GET'], '/test', []);
+        $route->parameters = [];
+
+        $this->router->expects($this->once())
+            ->method('current')
+            ->willReturn($route);
+
+        $this->manager->for('test', static function (): void {});
+
+        $this->assertFalse($this->manager->exists(null));
+    }
+
     public function testANullCallbackNameChecksIfACallbackExistsForThe404Route(): void
     {
         $this->router->expects($this->once())
@@ -350,12 +364,12 @@ class BreadcrumbsManagerTest extends TestCase
         });
 
         // Home > Blog > [Category] (Active page)
-        $manager->for('category', static function (BreadcrumbsGenerator $trail, $category): void {
+        $manager->for('category', static function (BreadcrumbsGenerator $trail, object $category): void {
             $trail->parent('blog');
             $trail->push($category->title, url(sprintf('blog/category/%s', $category->id)));
         });
 
-        $this->assertMatchesXmlSnapshot(
+        $this->assertMatchesHtmlSnapshot(
             $manager->view(
                 sprintf('breadcrumbs::%s', $view),
                 'category',
@@ -365,5 +379,14 @@ class BreadcrumbsManagerTest extends TestCase
                 ]
             )->render()
         );
+    }
+
+    public function testManagerIsMacroable()
+    {
+        BreadcrumbsManager::macro('tester', function (): string {
+            return 'Tester';
+        });
+
+        $this->assertSame('Tester', $this->getManager()->tester());
     }
 }
