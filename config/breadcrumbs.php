@@ -11,7 +11,6 @@ return [
     | Built in templates are:
     |
     | - 'breadcrumbs::bootstrap4' - Bootstrap 4
-    | - 'breadcrumbs::json-ld'    - JSON-LD Structured Data
     |
     | Or a custom view, e.g. '_partials/breadcrumbs'.
     |
