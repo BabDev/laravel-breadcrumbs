@@ -30,6 +30,11 @@ class InvalidBreadcrumbException extends \InvalidArgumentException implements Br
         $this->name = $name;
     }
 
+    public function isRouteBounded(): bool
+    {
+        return $this->routeIsBounded;
+    }
+
     public function routeIsBounded(): void
     {
         $this->routeIsBounded = true;

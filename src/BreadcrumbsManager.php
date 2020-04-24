@@ -194,8 +194,6 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      */
     public function view(string $view, ?string $name = null, ...$params): View
     {
-        $breadcrumbs = $this->generate($name, ...$params);
-
         return $this->viewFactory->make(
             $view,
             [
