@@ -33,7 +33,7 @@ class BreadcrumbsServiceProviderTest extends TestCase
     public function testDeferredServicesAreListed(): void
     {
         $this->assertTrue(
-            in_array(
+            \in_array(
                 'breadcrumbs.generator',
                 $this->app->getProvider(BreadcrumbsServiceProvider::class)->provides()
             )
@@ -67,7 +67,7 @@ class BreadcrumbsServiceProviderTest extends TestCase
     {
         $this->expectException(FileNotFoundException::class);
 
-        $this->app['config']->set('breadcrumbs.files', [__DIR__.'/non-existing.php']);
+        $this->app['config']->set('breadcrumbs.files', [__DIR__ . '/non-existing.php']);
 
         $this->app->make('breadcrumbs.manager');
     }

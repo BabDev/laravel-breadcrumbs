@@ -25,7 +25,7 @@ class InvalidBreadcrumbException extends \InvalidArgumentException implements Br
 
     public function __construct(string $name)
     {
-        parent::__construct(sprintf('Breadcrumb not found with name "%s"', $name));
+        parent::__construct(\sprintf('Breadcrumb not found with name "%s"', $name));
 
         $this->name = $name;
     }
@@ -55,9 +55,9 @@ class InvalidBreadcrumbException extends \InvalidArgumentException implements Br
         $routeName = $route instanceof Route ? $route->getName() : null;
 
         if ($routeName) {
-            $url = sprintf("route('%s')", $this->name);
+            $url = \sprintf("route('%s')", $this->name);
         } else {
-            $url = sprintf("url('%s')", request()->path());
+            $url = \sprintf("url('%s')", request()->path());
         }
 
         $links = [];
@@ -79,7 +79,7 @@ Breadcrumbs::for('{$this->name}', function (\$trail) {
 DESC
         ;
 
-        return BaseSolution::create(sprintf('Add this to %s', $file))
+        return BaseSolution::create(\sprintf('Add this to %s', $file))
             ->setSolutionDescription($description)
             ->setDocumentationLinks($links);
     }

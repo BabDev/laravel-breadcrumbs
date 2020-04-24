@@ -14,7 +14,7 @@ class InvalidBreadcrumbExceptionTest extends TestCase
         $this->app['config']->set(
             'breadcrumbs.files',
             [
-                __DIR__.'/../routes/breadcrumbs.php',
+                __DIR__ . '/../routes/breadcrumbs.php',
             ]
         );
 
@@ -41,8 +41,8 @@ DESC;
         $this->app['config']->set(
             'breadcrumbs.files',
             [
-                __DIR__.'/../breadcrumbs/file1.php',
-                __DIR__.'/../breadcrumbs/file2.php',
+                __DIR__ . '/../breadcrumbs/file1.php',
+                __DIR__ . '/../breadcrumbs/file2.php',
             ]
         );
 
@@ -69,7 +69,7 @@ DESC;
         $this->app['config']->set(
             'breadcrumbs.files',
             [
-                __DIR__.'/../routes/breadcrumbs.php',
+                __DIR__ . '/../routes/breadcrumbs.php',
             ]
         );
 
@@ -99,7 +99,7 @@ DESC;
         $this->app['config']->set(
             'breadcrumbs.files',
             [
-                __DIR__.'/../routes/breadcrumbs.php',
+                __DIR__ . '/../routes/breadcrumbs.php',
             ]
         );
 

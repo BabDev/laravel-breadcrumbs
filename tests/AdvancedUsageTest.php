@@ -60,7 +60,8 @@ class AdvancedUsageTest extends TestCase
     public function testCurrentPageBreadcrumb()
     {
         \Route::name('home')
-            ->get('/', static function () {});
+            ->get('/', static function () {
+            });
 
         \Route::name('post')
             ->middleware(SubstituteBindings::class)

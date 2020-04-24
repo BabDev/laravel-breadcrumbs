@@ -143,7 +143,7 @@ class BreadcrumbsGeneratorTest extends TestCase
                     $trail->parent('blog');
                 }
 
-                $trail->push($category->title, sprintf('/category/%s', $category->id));
+                $trail->push($category->title, \sprintf('/category/%s', $category->id));
             },
         ];
 

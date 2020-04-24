@@ -70,7 +70,8 @@ class BreadcrumbsManagerTest extends TestCase
 
     public function testACallbackIsRegistered(): void
     {
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertTrue($this->manager->exists('test'));
     }
@@ -79,13 +80,16 @@ class BreadcrumbsManagerTest extends TestCase
     {
         $this->expectException(DuplicateBreadcrumbException::class);
 
-        $this->manager->for('test', static function (): void {});
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
+        $this->manager->for('test', static function (): void {
+        });
     }
 
     public function testANamedCallbackExists(): void
     {
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertTrue($this->manager->exists('test'));
         $this->assertFalse($this->manager->exists('not-present'));
@@ -100,7 +104,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('current')
             ->willReturn($route);
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertTrue($this->manager->exists(null));
     }
@@ -114,7 +119,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('current')
             ->willReturn($route);
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertFalse($this->manager->exists(null));
     }
@@ -125,7 +131,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('current')
             ->willReturn(null);
 
-        $this->manager->for('errors.404', static function (): void {});
+        $this->manager->for('errors.404', static function (): void {
+        });
 
         $this->assertTrue($this->manager->exists(null));
     }
@@ -135,7 +142,8 @@ class BreadcrumbsManagerTest extends TestCase
         $this->router->expects($this->never())
             ->method('current');
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
         $this->manager->setCurrentRoute('test', []);
 
         $this->assertTrue($this->manager->exists(null));
@@ -147,7 +155,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('generate')
             ->willReturn(new Collection());
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertInstanceOf(Collection::class, $this->manager->generate('test'));
     }
@@ -158,7 +167,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('generate')
             ->willReturn(new Collection());
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
         $this->manager->setCurrentRoute('test', []);
 
         $this->assertInstanceOf(Collection::class, $this->manager->generate(null));
@@ -175,7 +185,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('current')
             ->willReturn($route);
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $breadcrumbs = $this->manager->generate(null);
 
@@ -224,7 +235,7 @@ class BreadcrumbsManagerTest extends TestCase
         try {
             $this->manager->generate(null);
 
-            $this->fail(sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
+            $this->fail(\sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
         } catch (InvalidBreadcrumbException $exception) {
             $this->assertTrue($exception->isRouteBounded());
         }
@@ -245,7 +256,7 @@ class BreadcrumbsManagerTest extends TestCase
         try {
             $this->manager->generate('test');
 
-            $this->fail(sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
+            $this->fail(\sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
         } catch (InvalidBreadcrumbException $exception) {
             $this->assertFalse($exception->isRouteBounded());
         }
@@ -264,7 +275,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('current')
             ->willReturn($route);
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->manager->generate(null);
     }
@@ -279,7 +291,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('make')
             ->willReturn($this->createMock(View::class));
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertInstanceOf(View::class, $this->manager->view('breadcrumbs', 'test'));
     }
@@ -296,7 +309,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('make')
             ->willReturn($this->createMock(View::class));
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertInstanceOf(View::class, $this->manager->render('test'));
     }
@@ -331,7 +345,8 @@ class BreadcrumbsManagerTest extends TestCase
             ->method('generate')
             ->willReturn($breadcrumbs);
 
-        $this->manager->for('test', static function (): void {});
+        $this->manager->for('test', static function (): void {
+        });
 
         $this->assertSame($current, $this->manager->current());
     }
@@ -366,12 +381,12 @@ class BreadcrumbsManagerTest extends TestCase
         // Home > Blog > [Category] (Active page)
         $manager->for('category', static function (BreadcrumbsGenerator $trail, object $category): void {
             $trail->parent('blog');
-            $trail->push($category->title, url(sprintf('blog/category/%s', $category->id)));
+            $trail->push($category->title, url(\sprintf('blog/category/%s', $category->id)));
         });
 
         $this->assertMatchesHtmlSnapshot(
             $manager->view(
-                sprintf('breadcrumbs::%s', $view),
+                \sprintf('breadcrumbs::%s', $view),
                 'category',
                 (object) [
                     'id' => 456,

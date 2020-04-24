@@ -23,7 +23,7 @@ class UnnamedRouteException extends \InvalidArgumentException implements Breadcr
     {
         $uri = Arr::first($route->methods()) . ' /' . \ltrim($route->uri(), '/');
 
-        parent::__construct(sprintf('The current route "%s" is not named', $uri));
+        parent::__construct(\sprintf('The current route "%s" is not named', $uri));
 
         $this->route = $route;
     }
@@ -36,11 +36,11 @@ class UnnamedRouteException extends \InvalidArgumentException implements Breadcr
 
         if ($action === '\Illuminate\Routing\ViewController') {
             $method = 'view';
-            $action = sprintf("'%s'", $this->route->defaults['view'] ?? 'view-name');
+            $action = \sprintf("'%s'", $this->route->defaults['view'] ?? 'view-name');
         } elseif ($action === 'Closure') {
             $action = "function() {\n    ...\n}";
         } else {
-            $action = sprintf("'%s'", Str::replaceFirst(app()->getNamespace() . 'Http\Controllers\\', '', $action));
+            $action = \sprintf("'%s'", Str::replaceFirst(app()->getNamespace() . 'Http\Controllers\\', '', $action));
         }
 
         $description = <<<DESC
