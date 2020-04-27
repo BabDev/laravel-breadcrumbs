@@ -3,5 +3,4 @@
 /.gitignore export-ignore
 /.travis.yml export-ignore
 /README.md export-ignore
-/logo.svg export-ignore
 /phpunit.xml.dist export-ignore
