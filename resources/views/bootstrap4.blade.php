@@ -1,4 +1,5 @@
-@if (count($breadcrumbs))
+@php /** @var \Illuminate\Support\Collection $breadcrumbs **/ @endphp
+@unless($breadcrumbs->isEmpty())
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             @foreach ($breadcrumbs as $breadcrumb)
@@ -10,4 +11,4 @@
             @endforeach
         </ol>
     </nav>
-@endif
+@endunless
