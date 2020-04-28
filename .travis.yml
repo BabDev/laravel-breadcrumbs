@@ -9,9 +9,9 @@ env:
 matrix:
   include:
     - php: 7.2
-      env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" LARAVEL_VERSION="^6.0"
+      env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" LARAVEL_VERSION="^6.18"
     - php: 7.3
-      env: LARAVEL_VERSION="^6.0"
+      env: LARAVEL_VERSION="^6.18"
     - php: 7.3
       env: LARAVEL_VERSION="^7.0"
     - php: 7.4
