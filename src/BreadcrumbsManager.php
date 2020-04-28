@@ -195,7 +195,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      * @throws UnnamedRouteException      if the current route doesn't have an associated name
      */
-    public function current(): ?\stdClass
+    public function current(): ?object
     {
         return $this->generate()->where('current', '!==', false)->last();
     }
