@@ -384,7 +384,7 @@ class BreadcrumbsManagerTest extends TestCase
             $trail->push($category->title, url(\sprintf('blog/category/%s', $category->id)));
         });
 
-        $this->assertMatchesHtmlSnapshot(
+        $this->assertMatchesXmlSnapshot(
             $manager->view(
                 \sprintf('breadcrumbs::%s', $view),
                 'category',

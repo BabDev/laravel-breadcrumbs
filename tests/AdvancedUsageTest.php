@@ -61,7 +61,7 @@ class AdvancedUsageTest extends TestCase
 
         \Breadcrumbs::setCurrentRoute('sample');
 
-        $this->assertMatchesHtmlSnapshot(\Breadcrumbs::render()->render());
+        $this->assertMatchesXmlSnapshot(\Breadcrumbs::render()->render());
     }
 
     public function testSetCurrentRouteWithParams()
@@ -72,7 +72,7 @@ class AdvancedUsageTest extends TestCase
 
         \Breadcrumbs::setCurrentRoute('sample', 1, 2);
 
-        $this->assertMatchesHtmlSnapshot(\Breadcrumbs::render()->toHtml());
+        $this->assertMatchesXmlSnapshot(\Breadcrumbs::render()->toHtml());
     }
 
     public function testClearCurrentRoute()
