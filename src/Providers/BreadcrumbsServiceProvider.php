@@ -41,8 +41,6 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
      */
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'breadcrumbs');
-
         $this->publishes(
             [
                 __DIR__ . '/../../config/breadcrumbs.php' => $this->app->configPath('breadcrumbs.php'),
@@ -50,14 +48,14 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
             'config'
         );
 
-        if ($this->app->runningInConsole()) {
-            $this->publishes(
-                [
-                    __DIR__ . '/resources/views' => $this->app->resourcePath('views/vendor/pagination'),
-                ],
-                'laravel-breadcrumbs'
-            );
-        }
+        $this->publishes(
+            [
+                __DIR__ . '/../../resources/views' => base_path('resources/views/vendor/breadcrumbs'),
+            ],
+            'views'
+        );
+
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'breadcrumbs');
     }
 
     /**
