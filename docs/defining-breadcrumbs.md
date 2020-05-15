@@ -2,7 +2,7 @@
 
 Breadcrumbs will usually correspond to actions or types of pages. For each breadcrumb, at a minimum you must specify a name and the breadcrumb title. You should also define the URL that the breadcrumb links to if it has a corresponding page. Since these are likely to change dynamically, breadcrumbs are registered in callback functions where you may pass any data you need.
 
-## Static pages
+## Static Pages
 
 The most simple breadcrumb is probably going to be your homepage, which will look something like this:
 
@@ -60,7 +60,7 @@ The `$post` object (probably an [Eloquent](https://laravel.com/docs/eloquent) mo
 {{ Breadcrumbs::render('post', $post) }}
 ```
 
-{tip} You can pass as many parameters as desired.
+<div class="docs-note docs-note--tip">You can pass as many parameters as desired.</div>
 
 ## Nested Categories
 

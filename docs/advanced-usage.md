@@ -35,7 +35,7 @@ The `$data` array's entries will be merged into the breadcrumb as properties, so
 </li>
 ```
 
-{note} The `title` and `url` keys are used by the generator for the title and URL defined in your `$trail->push()` calls, ensure you do not set these keys in your code.
+<div class="docs-note">The "title" and "url" keys are used by the generator for the title and URL defined in your <code>$trail->push()</code> calls, ensure you do not set these keys in your code.</div>
 
 ## Event Listeners
 
