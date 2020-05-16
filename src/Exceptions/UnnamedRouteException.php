@@ -56,9 +56,8 @@ DESC
             ->setSolutionDescription($description)
             ->setDocumentationLinks(
                 [
-                    'Route-bound breadcrumbs' => 'https://github.com/BabDev/laravel-breadcrumbs#route-bound-breadcrumbs',
-                    'Silencing breadcrumb exceptions' => 'https://github.com/BabDev/laravel-breadcrumbs#configuration-file',
-                    'Laravel Breadcrumbs documentation' => 'https://github.com/BabDev/laravel-breadcrumbs#laravel-breadcrumbs',
+                    'Route-bound breadcrumbs' => 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs',
+                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x',
                 ]
             );
     }

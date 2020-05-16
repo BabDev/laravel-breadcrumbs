@@ -47,8 +47,8 @@ class DuplicateBreadcrumbException extends \InvalidArgumentException implements 
             ->setSolutionDescription($description)
             ->setDocumentationLinks(
                 [
-                    'Defining breadcrumbs' => 'https://github.com/BabDev/laravel-breadcrumbs#defining-breadcrumbs',
-                    'Laravel Breadcrumbs documentation' => 'https://github.com/BabDev/laravel-breadcrumbs#laravel-breadcrumbs',
+                    'Defining breadcrumbs' => 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x/defining-breadcrumbs',
+                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x',
                 ]
             );
     }
