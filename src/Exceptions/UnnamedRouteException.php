@@ -56,8 +56,8 @@ DESC
             ->setSolutionDescription($description)
             ->setDocumentationLinks(
                 [
-                    'Route-bound breadcrumbs' => 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs',
-                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x',
+                    'Route-bound breadcrumbs' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs',
+                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x',
                 ]
             );
     }

@@ -61,13 +61,13 @@ class InvalidBreadcrumbException extends \InvalidArgumentException implements Br
         }
 
         $links = [];
-        $links['Defining breadcrumbs'] = 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x/defining-breadcrumbs';
+        $links['Defining breadcrumbs'] = 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x/defining-breadcrumbs';
 
         if ($this->routeIsBounded) {
-            $links['Route-bound breadcrumbs'] = 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs';
+            $links['Route-bound breadcrumbs'] = 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs';
         }
 
-        $links['Laravel Breadcrumbs documentation'] = 'https://www.babdev.com//open-source/packages/laravel-breadcrumbs/docs/1.x';
+        $links['Laravel Breadcrumbs documentation'] = 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x';
 
         $description = <<<DESC
 ```php
