@@ -109,6 +109,15 @@ Once published, open the `config/breadcrumbs.php` and edit this line:
     'view' => 'breadcrumbs::bootstrap4',
 ```
 
+#### Available Templates
+
+The below table lists the available templates and the CSS framework they correspond to.
+
+| Template Name             | Framework                                           | Since Package Version |
+| ------------------------- | --------------------------------------------------- | --------------------- |
+| `breadcrumbs::bootstrap4` | [Bootstrap](https://getbootstrap.com) (version 4.x) | 1.0                   |
+| `breadcrumbs::tailwind`   | [Tailwind CSS](https://tailwindcss.com/)            | 1.1                   |
+
 Please see the [Custom Templates](/open-source/packages/laravel-breadcrumbs/docs/1.x/custom-templates) page for more details on defining a breadcrumbs view.
 
 ### Output The Breadcrumbs
