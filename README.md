@@ -1,6 +1,6 @@
 # Laravel Breadcrumbs
 
-[![Latest Stable Version](https://poser.pugx.org/babdev/laravel-breadcrumbs/v/stable)](https://packagist.org/packages/babdev/laravel-breadcrumbs) [![Latest Unstable Version](https://poser.pugx.org/babdev/laravel-breadcrumbs/v/unstable)](https://packagist.org/packages/babdev/laravel-breadcrumbs) [![Total Downloads](https://poser.pugx.org/babdev/laravel-breadcrumbs/downloads)](https://packagist.org/packages/babdev/laravel-breadcrumbs) [![License](https://poser.pugx.org/babdev/laravel-breadcrumbs/license)](https://packagist.org/packages/babdev/laravel-breadcrumbs) ![Run Tests](https://github.com/BabDev/laravel-breadcrumbs/workflows/Run%20Tests/badge.svg?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/babdev/laravel-breadcrumbs/v/stable)](https://packagist.org/packages/babdev/laravel-breadcrumbs) [![Latest Unstable Version](https://poser.pugx.org/babdev/laravel-breadcrumbs/v/unstable)](https://packagist.org/packages/babdev/laravel-breadcrumbs) [![Total Downloads](https://poser.pugx.org/babdev/laravel-breadcrumbs/downloads)](https://packagist.org/packages/babdev/laravel-breadcrumbs) [![License](https://poser.pugx.org/babdev/laravel-breadcrumbs/license)](https://packagist.org/packages/babdev/laravel-breadcrumbs) ![Run Tests](https://github.com/BabDev/laravel-breadcrumbs/workflows/Run%20Tests/badge.svg?branch=1.x)
 
 A simple [Laravel](https://laravel.com) style way to create breadcrumbs.
 
