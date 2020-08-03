@@ -12,6 +12,25 @@ use Orchestra\Testbench\TestCase;
 
 class BreadcrumbsGeneratorTest extends TestCase
 {
+    /**
+     * @var Dispatcher
+     */
+    private $dispatcher;
+
+    /**
+     * @var BreadcrumbsGenerator
+     */
+    private $generator;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->dispatcher = $this->app->make('events');
+
+        $this->generator = new BreadcrumbsGenerator($this->dispatcher);
+    }
+
     public function testGeneratesABreadcrumb(): void
     {
         $callbacks = [
@@ -20,7 +39,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'blog', []);
+        $breadcrumbs = $this->generator->generate($callbacks, 'blog', []);
 
         $this->assertCount(1, $breadcrumbs);
         $this->assertEquals(
@@ -36,14 +55,11 @@ class BreadcrumbsGeneratorTest extends TestCase
 
     public function testGeneratesABreadcrumbWithBeforeAndAfterEvents(): void
     {
-        /** @var Dispatcher $dispatcher */
-        $dispatcher = $this->app->make('events');
-
-        $dispatcher->listen(BeforeBreadcrumbGenerated::class, static function (BeforeBreadcrumbGenerated $event): void {
+        $this->dispatcher->listen(BeforeBreadcrumbGenerated::class, static function (BeforeBreadcrumbGenerated $event): void {
             $event->breadcrumbs->push('Home', '/');
         });
 
-        $dispatcher->listen(AfterBreadcrumbGenerated::class, static function (AfterBreadcrumbGenerated $event): void {
+        $this->dispatcher->listen(AfterBreadcrumbGenerated::class, static function (AfterBreadcrumbGenerated $event): void {
             $event->breadcrumbs->push('Page 2', '/page-2');
         });
 
@@ -53,7 +69,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator($dispatcher))->generate($callbacks, 'blog', []);
+        $breadcrumbs = $this->generator->generate($callbacks, 'blog', []);
 
         $this->assertCount(3, $breadcrumbs);
         $this->assertEquals(
@@ -87,7 +103,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'blog', []);
+        $breadcrumbs = $this->generator->generate($callbacks, 'blog', []);
 
         $this->assertCount(2, $breadcrumbs);
         $this->assertEquals(
@@ -107,13 +123,16 @@ class BreadcrumbsGeneratorTest extends TestCase
 
     public function testGeneratesABreadcrumbWithCustomAttributes(): void
     {
+        /** @var Dispatcher $dispatcher */
+        $dispatcher = $this->app->make('events');
+
         $callbacks = [
             'blog' => static function (BreadcrumbsGeneratorContract $trail): void {
                 $trail->push('Blog', '/blog', ['icon' => 'blog']);
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'blog', []);
+        $breadcrumbs = $this->generator->generate($callbacks, 'blog', []);
 
         $this->assertCount(1, $breadcrumbs);
         $this->assertEquals(
@@ -149,7 +168,7 @@ class BreadcrumbsGeneratorTest extends TestCase
             },
         ];
 
-        $breadcrumbs = (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate($callbacks, 'category', [$category3]);
+        $breadcrumbs = $this->generator->generate($callbacks, 'category', [$category3]);
 
         $this->assertCount(4, $breadcrumbs);
         $this->assertEquals(
@@ -179,6 +198,6 @@ class BreadcrumbsGeneratorTest extends TestCase
     {
         $this->expectException(InvalidBreadcrumbException::class);
 
-        (new BreadcrumbsGenerator($this->createMock(Dispatcher::class)))->generate([], 'blog', []);
+        $this->generator->generate([], 'blog', []);
     }
 }
