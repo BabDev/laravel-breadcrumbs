@@ -8,7 +8,7 @@ use BabDev\Breadcrumbs\Events\AfterBreadcrumbGenerated;
 use BabDev\Breadcrumbs\Events\BeforeBreadcrumbGenerated;
 use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use Illuminate\Contracts\Events\Dispatcher;
-use PHPUnit\Framework\TestCase;
+use Orchestra\Testbench\TestCase;
 
 class BreadcrumbsGeneratorTest extends TestCase
 {
@@ -36,21 +36,16 @@ class BreadcrumbsGeneratorTest extends TestCase
 
     public function testGeneratesABreadcrumbWithBeforeAndAfterEvents(): void
     {
-        $dispatcher = $this->createMock(Dispatcher::class);
+        /** @var Dispatcher $dispatcher */
+        $dispatcher = $this->app->make('events');
 
-        $dispatcher->expects($this->at(0))
-            ->method('dispatch')
-            ->with($this->isInstanceOf(BeforeBreadcrumbGenerated::class))
-            ->willReturnCallback(static function (BeforeBreadcrumbGenerated $event): void {
-                $event->breadcrumbs->push('Home', '/');
-            });
+        $dispatcher->listen(BeforeBreadcrumbGenerated::class, static function (BeforeBreadcrumbGenerated $event): void {
+            $event->breadcrumbs->push('Home', '/');
+        });
 
-        $dispatcher->expects($this->at(1))
-            ->method('dispatch')
-            ->with($this->isInstanceOf(AfterBreadcrumbGenerated::class))
-            ->willReturnCallback(static function (AfterBreadcrumbGenerated $event): void {
-                $event->breadcrumbs->push('Page 2', '/page-2');
-            });
+        $dispatcher->listen(AfterBreadcrumbGenerated::class, static function (AfterBreadcrumbGenerated $event): void {
+            $event->breadcrumbs->push('Page 2', '/page-2');
+        });
 
         $callbacks = [
             'blog' => static function (BreadcrumbsGeneratorContract $trail): void {
