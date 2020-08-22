@@ -25,7 +25,7 @@ jobs:
           - php: 7.4
             laravel: 8.*
             composer-flags: '--prefer-stable'
-            next-laravel: false
+            next-laravel: true
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - Composer ${{ matrix.composer-flags }}
 
