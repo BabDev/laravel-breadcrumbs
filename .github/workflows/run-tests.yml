@@ -9,8 +9,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.2, 7.3, 7.4]
-        laravel: [^6.18, 7.*]
+        php: [7.3, 7.4]
+        laravel: [7.*, 8.*]
         composer-flags: ['--prefer-stable']
         next-laravel: [false]
         include:
@@ -18,14 +18,14 @@ jobs:
             laravel: ^6.18
             composer-flags: '--prefer-stable --prefer-lowest'
             next-laravel: false
+          - php: 7.2
+            laravel: ^6.18
+            composer-flags: '--prefer-stable'
+            next-laravel: false
           - php: 7.4
             laravel: 7.*
             composer-flags: '' # This empty flag removes the prefer-stable switch to cause dev dependencies to be installed
             next-laravel: false
-          - php: 7.4
-            laravel: 8.*
-            composer-flags: '--prefer-stable'
-            next-laravel: true
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - Composer ${{ matrix.composer-flags }}
 
@@ -43,6 +43,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          tools: composer:v2
           extensions: curl, iconv, mbstring, pdo, pdo_sqlite, sqlite, zip
           coverage: none
 
