@@ -10,7 +10,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.3, 7.4]
-        laravel: [7.*, 8.*]
+        laravel: [8.*]
         composer-flags: ['--prefer-stable']
         next-laravel: [false]
         include:
@@ -21,10 +21,6 @@ jobs:
           - php: 7.2
             laravel: ^6.18
             composer-flags: '--prefer-stable'
-            next-laravel: false
-          - php: 7.4
-            laravel: 7.*
-            composer-flags: '' # This empty flag removes the prefer-stable switch to cause dev dependencies to be installed
             next-laravel: false
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - Composer ${{ matrix.composer-flags }}
