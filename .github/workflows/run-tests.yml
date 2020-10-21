@@ -5,23 +5,27 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.next-laravel }}
+    continue-on-error: ${{ matrix.can-fail }}
     strategy:
       fail-fast: true
       matrix:
         php: [7.3, 7.4]
         laravel: [8.*]
         composer-flags: ['--prefer-stable']
-        next-laravel: [false]
+        can-fail: [false]
         include:
           - php: 7.2
             laravel: ^6.18
             composer-flags: '--prefer-stable --prefer-lowest'
-            next-laravel: false
+            can-fail: false
           - php: 7.2
             laravel: ^6.18
             composer-flags: '--prefer-stable'
-            next-laravel: false
+            can-fail: false
+          - php: 8.0
+            laravel: 8.*
+            composer-flags: '--ignore-platform-req=php'
+            can-fail: true
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - Composer ${{ matrix.composer-flags }}
 
