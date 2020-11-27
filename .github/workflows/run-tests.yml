@@ -10,7 +10,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.3, 7.4, 8.0]
-        laravel: [8.*]
+        laravel: [^6.18, 8.*]
         composer-flags: ['--prefer-stable']
         can-fail: [false]
         include:
