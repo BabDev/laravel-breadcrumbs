@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.3, 7.4]
+        php: [7.3, 7.4, 8.0]
         laravel: [8.*]
         composer-flags: ['--prefer-stable']
         can-fail: [false]
@@ -22,10 +22,6 @@ jobs:
             laravel: ^6.18
             composer-flags: '--prefer-stable'
             can-fail: false
-          - php: 8.0
-            laravel: 8.*
-            composer-flags: '--ignore-platform-req=php'
-            can-fail: true
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - Composer ${{ matrix.composer-flags }}
 
