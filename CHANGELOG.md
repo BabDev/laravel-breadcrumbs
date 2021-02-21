@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 (2021-??-??)
+
+- Added Bootstrap 5 template
+
 ## 1.3.0 (2020-11-09)
 
 - Drop support for Laravel 7

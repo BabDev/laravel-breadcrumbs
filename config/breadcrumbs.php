@@ -11,6 +11,7 @@ return [
     | Built in templates are:
     |
     | - 'breadcrumbs::bootstrap4' - Bootstrap 4
+    | - 'breadcrumbs::bootstrap5' - Bootstrap 5
     | - 'breadcrumbs::tailwind' - Tailwind CSS
     |
     | Or a custom view, e.g. '_partials/breadcrumbs'.
