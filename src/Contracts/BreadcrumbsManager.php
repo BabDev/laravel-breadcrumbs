@@ -15,7 +15,7 @@ interface BreadcrumbsManager
      * Registers a breadcrumb-generating callback.
      *
      * @param string   $name     The name of the page.
-     * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may accept additional parameters.
+     * @param callable $callback The callback, which should accept a {@link BreadcrumbsGenerator} instance as the first parameter and may accept additional parameters.
      *
      * @return void
      *

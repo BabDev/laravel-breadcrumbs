@@ -23,17 +23,17 @@ class BreadcrumbsManagerTest extends TestCase
     use MatchesSnapshots;
 
     /**
-     * @var BreadcrumbsGenerator|MockObject
+     * @var MockObject&BreadcrumbsGenerator
      */
     private $generator;
 
     /**
-     * @var Router|MockObject
+     * @var MockObject&Router
      */
     private $router;
 
     /**
-     * @var ViewFactory|MockObject
+     * @var MockObject&ViewFactory
      */
     private $viewFactory;
 

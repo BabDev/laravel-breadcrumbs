@@ -38,14 +38,14 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     /**
      * The registered breadcrumb-generating callbacks.
      *
-     * @var array
+     * @var array<string, callable>
      */
     protected $callbacks = [];
 
     /**
      * The current route name and parameters.
      *
-     * @var array|null
+     * @var array<string, array>|null
      */
     protected $route;
 
@@ -60,7 +60,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      * Registers a breadcrumb-generating callback.
      *
      * @param string   $name     The name of the page.
-     * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may accept additional parameters.
+     * @param callable $callback The callback, which should accept a {@link BreadcrumbsGenerator} instance as the first parameter and may accept additional parameters.
      *
      * @return void
      *
@@ -211,7 +211,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      * [$name, $params] = $this->getCurrentRoute();
      * ```
      *
-     * @return array A two-element array consisting of the route name (string) and any parameters (array).
+     * @return array<string, array> A two-element array consisting of the route name (string) and any parameters (array).
      *
      * @throws UnnamedRouteException if the current route doesn't have an associated name
      */

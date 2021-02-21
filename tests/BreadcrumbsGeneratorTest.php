@@ -123,9 +123,6 @@ class BreadcrumbsGeneratorTest extends TestCase
 
     public function testGeneratesABreadcrumbWithCustomAttributes(): void
     {
-        /** @var Dispatcher $dispatcher */
-        $dispatcher = $this->app->make('events');
-
         $callbacks = [
             'blog' => static function (BreadcrumbsGeneratorContract $trail): void {
                 $trail->push('Blog', '/blog', ['icon' => 'blog']);

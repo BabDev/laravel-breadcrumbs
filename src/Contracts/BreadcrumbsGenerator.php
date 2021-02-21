@@ -10,9 +10,9 @@ interface BreadcrumbsGenerator
     /**
      * Generate breadcrumbs.
      *
-     * @param callable[] $callbacks The registered breadcrumb-generating callbacks.
-     * @param string     $name      The name of the current page.
-     * @param array      $params    The parameters to pass to the closure for the current page.
+     * @param array<string, callable> $callbacks The registered breadcrumb-generating callbacks.
+     * @param string                  $name      The name of the current page.
+     * @param array                   $params    The parameters to pass to the closure for the current page.
      *
      * @return Collection
      *
