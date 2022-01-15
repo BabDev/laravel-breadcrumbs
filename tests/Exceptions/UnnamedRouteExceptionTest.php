@@ -8,7 +8,7 @@ use Orchestra\Testbench\TestCase;
 
 class UnnamedRouteExceptionTest extends TestCase
 {
-    public function testProvidesSolutionForAClosureRoute()
+    public function testProvidesSolutionForAClosureRoute(): void
     {
         $route = $this->app['router']->get('/blog', static function (): Response {
             return new Response();
@@ -33,7 +33,7 @@ DESC
         );
     }
 
-    public function testProvidesSolutionForAnUnnamedRouteWithAControllerAction()
+    public function testProvidesSolutionForAnUnnamedRouteWithAControllerAction(): void
     {
         $route = $this->app['router']->get('/blog', 'App\Http\Controllers\BlogController@index');
 
@@ -54,7 +54,7 @@ DESC
         );
     }
 
-    public function testProvidesSolutionForAnUnnamedViewRoute()
+    public function testProvidesSolutionForAnUnnamedViewRoute(): void
     {
         $route = $this->app['router']->view('/blog', 'blog');
 

@@ -121,6 +121,6 @@ class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
      */
     public function push(string $title, string $url = null, array $data = []): void
     {
-        $this->breadcrumbs->push((object) \array_merge($data, \compact('title', 'url')));
+        $this->breadcrumbs->push((object) array_merge($data, compact('title', 'url')));
     }
 }

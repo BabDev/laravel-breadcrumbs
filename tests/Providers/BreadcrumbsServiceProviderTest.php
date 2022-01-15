@@ -58,7 +58,7 @@ class BreadcrumbsServiceProviderTest extends TestCase
 
     public function testTheManagerIsResolvedWhenThereAreFiles(): void
     {
-        $this->app['config']->set('breadcrumbs.files', \glob(__DIR__ . '/../breadcrumbs/*.php'));
+        $this->app['config']->set('breadcrumbs.files', glob(__DIR__ . '/../breadcrumbs/*.php'));
 
         $this->assertInstanceOf(BreadcrumbsManager::class, $this->app->make('breadcrumbs.manager'));
     }

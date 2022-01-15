@@ -238,7 +238,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
         }
 
         // Get the current route parameters
-        $params = \array_values($route->parameters());
+        $params = array_values($route->parameters());
 
         return [$name, $params];
     }

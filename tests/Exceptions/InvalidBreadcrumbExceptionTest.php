@@ -9,7 +9,7 @@ use Orchestra\Testbench\TestCase;
 
 class InvalidBreadcrumbExceptionTest extends TestCase
 {
-    public function testProvidesSolutionWhenASingleFileIsConfigured()
+    public function testProvidesSolutionWhenASingleFileIsConfigured(): void
     {
         $this->app['config']->set(
             'breadcrumbs.files',
@@ -36,7 +36,7 @@ DESC;
         $this->assertArrayNotHasKey('Route-bound breadcrumbs', $solution->getDocumentationLinks());
     }
 
-    public function testProvidesSolutionWhenMultipleFilesAreConfigured()
+    public function testProvidesSolutionWhenMultipleFilesAreConfigured(): void
     {
         $this->app['config']->set(
             'breadcrumbs.files',
@@ -64,7 +64,7 @@ DESC;
         $this->assertArrayNotHasKey('Route-bound breadcrumbs', $solution->getDocumentationLinks());
     }
 
-    public function testProvidesSolutionWithAppropriateDocumentationLinkWhenRouteIsBounded()
+    public function testProvidesSolutionWithAppropriateDocumentationLinkWhenRouteIsBounded(): void
     {
         $this->app['config']->set(
             'breadcrumbs.files',
@@ -94,7 +94,7 @@ DESC;
         $this->assertArrayHasKey('Route-bound breadcrumbs', $solution->getDocumentationLinks());
     }
 
-    public function testProvidesSolutionWhenThereIsARouteInTheRequest()
+    public function testProvidesSolutionWhenThereIsARouteInTheRequest(): void
     {
         $this->app['config']->set(
             'breadcrumbs.files',

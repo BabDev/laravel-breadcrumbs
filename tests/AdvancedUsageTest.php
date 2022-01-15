@@ -30,10 +30,10 @@ class AdvancedUsageTest extends TestCase
         ];
     }
 
-    public function testCurrentPageBreadcrumb()
+    public function testCurrentPageBreadcrumb(): void
     {
         \Route::name('home')
-            ->get('/', static function () {
+            ->get('/', static function (): void {
             });
 
         \Route::name('post')
@@ -53,7 +53,7 @@ class AdvancedUsageTest extends TestCase
         $this->assertSame('Post 1', $html);
     }
 
-    public function testSetCurrentRoute()
+    public function testSetCurrentRoute(): void
     {
         \Breadcrumbs::for('sample', static function (BreadcrumbsGenerator $trail): void {
             $trail->push('Sample');
@@ -64,7 +64,7 @@ class AdvancedUsageTest extends TestCase
         $this->assertMatchesXmlSnapshot(\Breadcrumbs::render()->render());
     }
 
-    public function testSetCurrentRouteWithParams()
+    public function testSetCurrentRouteWithParams(): void
     {
         \Breadcrumbs::for('sample', static function (BreadcrumbsGenerator $trail, int $a, int $b): void {
             $trail->push("Sample $a, $b");
@@ -75,7 +75,7 @@ class AdvancedUsageTest extends TestCase
         $this->assertMatchesXmlSnapshot(\Breadcrumbs::render()->toHtml());
     }
 
-    public function testClearCurrentRoute()
+    public function testClearCurrentRoute(): void
     {
         $this->expectException(InvalidBreadcrumbException::class);
 

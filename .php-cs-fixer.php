@@ -1,8 +1,7 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
+$finder = (new PhpCsFixer\Finder())
     ->notPath('config')
-    ->notPath('tests/__snapshots__')
     ->notPath('vendor')
     ->in(__DIR__)
     ->name('*.php')
@@ -10,10 +9,13 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRules(
         [
-            'psr0'                                        => false,
+            '@PHP71Migration'                             => true,
+            '@PHP71Migration:risky'                       => true,
+            '@PHPUnit84Migration:risky'                   => true,
+            '@PSR12'                                      => true,
             '@PSR2'                                       => true,
             'align_multiline_comment'                     => true,
             'array_indentation'                           => true,
@@ -47,6 +49,7 @@ return PhpCsFixer\Config::create()
             'concat_space'                                => [
                 'spacing' => 'one',
             ],
+            'declare_strict_types'                        => false,
             'dir_constant'                                => true,
             'function_to_constant'                        => true,
             'function_typehint_space'                     => true,
@@ -79,7 +82,6 @@ return PhpCsFixer\Config::create()
             'no_multiline_whitespace_around_double_arrow' => true,
             'no_null_property_initialization'             => true,
             'no_short_bool_cast'                          => true,
-            'no_short_echo_tag'                           => true,
             'no_spaces_after_function_name'               => true,
             'no_spaces_inside_parenthesis'                => true,
             'no_superfluous_elseif'                       => true,
@@ -107,7 +109,12 @@ return PhpCsFixer\Config::create()
             'switch_case_semicolon_to_colon'              => true,
             'switch_case_space'                           => true,
             'ternary_to_null_coalescing'                  => true,
-            'trailing_comma_in_multiline_array'           => true,
+            'trailing_comma_in_multiline'                 => [
+                'after_heredoc' => true,
+                'elements'      => [
+                    'arrays',
+                ],
+            ],
             'visibility_required'                         => [
                 'elements' => ['property', 'method', 'const'],
             ],

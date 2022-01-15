@@ -235,7 +235,7 @@ class BreadcrumbsManagerTest extends TestCase
         try {
             $this->manager->generate(null);
 
-            $this->fail(\sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
+            $this->fail(sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
         } catch (InvalidBreadcrumbException $exception) {
             $this->assertTrue($exception->isRouteBounded());
         }
@@ -256,7 +256,7 @@ class BreadcrumbsManagerTest extends TestCase
         try {
             $this->manager->generate('test');
 
-            $this->fail(\sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
+            $this->fail(sprintf('A %s should have been thrown.', InvalidBreadcrumbException::class));
         } catch (InvalidBreadcrumbException $exception) {
             $this->assertFalse($exception->isRouteBounded());
         }
@@ -353,8 +353,8 @@ class BreadcrumbsManagerTest extends TestCase
 
     public function packageViews(): \Generator
     {
-        foreach (\glob(__DIR__ . '/../resources/views/*.blade.php') as $filename) {
-            $name = \basename($filename, '.blade.php');
+        foreach (glob(__DIR__ . '/../resources/views/*.blade.php') as $filename) {
+            $name = basename($filename, '.blade.php');
 
             yield $name => [$name];
         }
@@ -381,12 +381,12 @@ class BreadcrumbsManagerTest extends TestCase
         // Home > Blog > [Category] (Active page)
         $manager->for('category', static function (BreadcrumbsGenerator $trail, object $category): void {
             $trail->parent('blog');
-            $trail->push($category->title, url(\sprintf('blog/category/%s', $category->id)));
+            $trail->push($category->title, url(sprintf('blog/category/%s', $category->id)));
         });
 
         $this->assertMatchesXmlSnapshot(
             $manager->view(
-                \sprintf('breadcrumbs::%s', $view),
+                sprintf('breadcrumbs::%s', $view),
                 'category',
                 (object) [
                     'id' => 456,
@@ -396,7 +396,7 @@ class BreadcrumbsManagerTest extends TestCase
         );
     }
 
-    public function testManagerIsMacroable()
+    public function testManagerIsMacroable(): void
     {
         BreadcrumbsManager::macro('tester', function (): string {
             return 'Tester';

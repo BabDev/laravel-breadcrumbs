@@ -19,7 +19,7 @@ class DuplicateBreadcrumbException extends \InvalidArgumentException implements 
 
     public function __construct(string $name)
     {
-        parent::__construct(\sprintf('Breadcrumb name "%s" has already been registered', $name));
+        parent::__construct(sprintf('Breadcrumb name "%s" has already been registered', $name));
 
         $this->name = $name;
     }
@@ -36,11 +36,11 @@ class DuplicateBreadcrumbException extends \InvalidArgumentException implements 
         }
 
         if (\count($files) > 1) {
-            $description = \sprintf('Look in the following files for multiple breadcrumbs named `%s`: %s', $this->name, \implode(', ', $files));
+            $description = sprintf('Look in the following files for multiple breadcrumbs named `%s`: %s', $this->name, implode(', ', $files));
         } elseif (\count($files) === 1) {
-            $description = \sprintf('Look in `%s` for multiple breadcrumbs named `%s`.', $files[0], $this->name);
+            $description = sprintf('Look in `%s` for multiple breadcrumbs named `%s`.', $files[0], $this->name);
         } else {
-            $description = \sprintf('Check your application for multiple breadcrumbs named `%s`.', $this->name);
+            $description = sprintf('Check your application for multiple breadcrumbs named `%s`.', $this->name);
         }
 
         return BaseSolution::create('Remove the duplicate breadcrumb')

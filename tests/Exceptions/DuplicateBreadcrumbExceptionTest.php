@@ -7,7 +7,7 @@ use Orchestra\Testbench\TestCase;
 
 class DuplicateBreadcrumbExceptionTest extends TestCase
 {
-    public function testProvidesSolutionWhenNoFilesAreConfigured()
+    public function testProvidesSolutionWhenNoFilesAreConfigured(): void
     {
         $this->app['config']->set('breadcrumbs.files', []);
 
@@ -19,7 +19,7 @@ class DuplicateBreadcrumbExceptionTest extends TestCase
         );
     }
 
-    public function testProvidesSolutionWhenASingleFileIsConfigured()
+    public function testProvidesSolutionWhenASingleFileIsConfigured(): void
     {
         $this->app['config']->set(
             'breadcrumbs.files',
@@ -36,7 +36,7 @@ class DuplicateBreadcrumbExceptionTest extends TestCase
         );
     }
 
-    public function testProvidesSolutionWhenMultipleFilesAreConfigured()
+    public function testProvidesSolutionWhenMultipleFilesAreConfigured(): void
     {
         $this->app['config']->set(
             'breadcrumbs.files',

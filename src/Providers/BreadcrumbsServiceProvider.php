@@ -136,7 +136,7 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
                 // Support both a single string filename and an array of filenames (e.g. returned by glob())
                 foreach ((array) $files as $file) {
                     if (!$filesystem->exists($file)) {
-                        throw new FileNotFoundException(\sprintf('The breadcrumb file "%s" does not exist.', $file));
+                        throw new FileNotFoundException(sprintf('The breadcrumb file "%s" does not exist.', $file));
                     }
 
                     $registrar->register($file);
