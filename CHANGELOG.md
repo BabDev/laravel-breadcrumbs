@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.4.0 (2021-??-??)
+## 1.4.0 (2022-??-??)
 
 - Added Bootstrap 5 template
+- Added support for Laravel 9
 
 ## 1.3.0 (2020-11-09)
 
