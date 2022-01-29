@@ -18,39 +18,23 @@ use Illuminate\Support\Collection;
 class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
 {
     /**
-     * The event dispatcher.
-     *
-     * @var Dispatcher
-     */
-    protected $dispatcher;
-
-    /**
      * Breadcrumbs currently being generated.
-     *
-     * @var Collection
      */
-    protected $breadcrumbs;
+    protected ?Collection $breadcrumbs = null;
 
     /**
-     * The registered breadcrumb-generating callbacks.
-     *
      * @var array<string, callable>
      */
-    protected $callbacks = [];
+    protected array $callbacks = [];
 
-    public function __construct(Dispatcher $dispatcher)
+    public function __construct(protected Dispatcher $dispatcher)
     {
-        $this->dispatcher = $dispatcher;
     }
 
     /**
-     * Generate breadcrumbs.
-     *
      * @param array<string, callable> $callbacks The registered breadcrumb-generating callbacks.
-     * @param string                  $name      The name of the current page.
-     * @param array                   $params    The parameters to pass to the closure for the current page.
      *
-     * @return Collection
+     * @return Collection<array-key, object>
      *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      */
@@ -69,17 +53,14 @@ class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
 
         $this->dispatcher->dispatch(new AfterBreadcrumbGenerated($this, $name, $params));
 
-        return $this->breadcrumbs;
+        $breadcrumbs = $this->breadcrumbs;
+
+        $this->breadcrumbs = null;
+
+        return $breadcrumbs;
     }
 
     /**
-     * Call the closure to generate breadcrumbs for a page.
-     *
-     * @param string $name   The name of the page.
-     * @param array  $params The parameters to pass to the closure.
-     *
-     * @return void
-     *
      * @throws InvalidBreadcrumbException if the name is not registered
      */
     protected function call(string $name, array $params): void
@@ -98,8 +79,6 @@ class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
      *
      * @param string $name      The name of the parent page.
      * @param array  ...$params The parameters to pass to the closure.
-     *
-     * @return void
      *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      */

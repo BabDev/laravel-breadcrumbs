@@ -17,9 +17,7 @@ use Illuminate\Support\ServiceProvider;
 final class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
+     * @return array<string|class-string>
      */
     public function provides(): array
     {
@@ -34,11 +32,6 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
         ];
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot(): void
     {
         $this->publishes(
@@ -58,11 +51,6 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
         $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'breadcrumbs');
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/breadcrumbs.php', 'breadcrumbs');
@@ -72,42 +60,26 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
         $this->registerManager();
     }
 
-    /**
-     * Registers the binding for the breadcrumbs generator.
-     *
-     * @return void
-     */
     private function registerGenerator(): void
     {
         $this->app->bind(
             'breadcrumbs.generator',
-            static function (Application $app): BreadcrumbsGeneratorContract {
-                return new BreadcrumbsGenerator(
-                    $app->make('events')
-                );
-            }
+            static fn (Application $app): BreadcrumbsGeneratorContract => new BreadcrumbsGenerator($app->make('events')),
         );
 
         $this->app->alias('breadcrumbs.generator', BreadcrumbsGeneratorContract::class);
         $this->app->alias('breadcrumbs.generator', BreadcrumbsGenerator::class);
     }
 
-    /**
-     * Registers the binding for the breadcrumbs manager.
-     *
-     * @return void
-     */
     private function registerManager(): void
     {
         $this->app->singleton(
             'breadcrumbs.manager',
-            static function (Application $app): BreadcrumbsManagerContract {
-                return new BreadcrumbsManager(
-                    $app->make('breadcrumbs.generator'),
-                    $app->make('router'),
-                    $app->make('view')
-                );
-            }
+            static fn (Application $app): BreadcrumbsManagerContract => new BreadcrumbsManager(
+                $app->make('breadcrumbs.generator'),
+                $app->make('router'),
+                $app->make('view'),
+            ),
         );
 
         $this->callAfterResolving(

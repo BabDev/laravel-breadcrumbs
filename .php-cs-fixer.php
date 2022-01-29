@@ -12,8 +12,8 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setRules(
         [
-            '@PHP71Migration'                             => true,
-            '@PHP71Migration:risky'                       => true,
+            '@PHP81Migration'                             => true,
+            '@PHP80Migration:risky'                       => true,
             '@PHPUnit84Migration:risky'                   => true,
             '@PSR12'                                      => true,
             '@PSR2'                                       => true,

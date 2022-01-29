@@ -41,7 +41,7 @@ It would be rendered like this:
 {{ Breadcrumbs::render('blog') }}
 ```
 
-Note that the default templates do not create a link for the last breadcrumb (the one for the current page) even when a URL is specified. You can override this by creating your own template. See the [Custom Templates](/open-source/packages/laravel-breadcrumbs/docs/1.x/custom-templates) page for more details.
+Note that the default templates do not create a link for the last breadcrumb (the one for the current page) even when a URL is specified. You can override this by creating your own template. See the [Custom Templates](/open-source/packages/laravel-breadcrumbs/docs/2.x/custom-templates) page for more details.
 
 ## Dynamic Titles & Links
 

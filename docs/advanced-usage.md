@@ -12,7 +12,7 @@ Breadcrumbs::for('sample', static function (BreadcrumbsGenerator $trail): void {
 
 The `$breadcrumb->url` value will be `null`.
 
-The default Bootstrap 4 template will treat this as an active breadcrumb and style it as such (i.e. adding the "active" class).
+The default Tailwind template will treat this as an active breadcrumb and style it as such.
 
 ## Custom Data
 
@@ -51,8 +51,8 @@ The following events are available when generating breadcrumbs:
 The events include three properties:
 
 - `$breadcrumbs` - The current `BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator` instance
-- `$name` - The name of the breadcrumb geing generated (either explicitly set in a `Breadcrumbs::render()` call or the route name if using [Route-Bound Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs))
-- `$params` - The additional parameters to be passed to the breadcrumb callbacks (either explicitly set in a `Breadcrumbs::render()` call or the route parameters if using [Route-Bound Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs))
+- `$name` - The name of the breadcrumb geing generated (either explicitly set in a `Breadcrumbs::render()` call or the route name if using [Route-Bound Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/2.x/route-bound-breadcrumbs))
+- `$params` - The additional parameters to be passed to the breadcrumb callbacks (either explicitly set in a `Breadcrumbs::render()` call or the route parameters if using [Route-Bound Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/2.x/route-bound-breadcrumbs))
 
 ### Breadcrumb For Pagination
 

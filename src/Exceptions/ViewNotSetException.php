@@ -17,8 +17,8 @@ class ViewNotSetException extends \RuntimeException implements BreadcrumbsExcept
             ->setSolutionDescription('Please check `config/breadcrumbs.php` for a valid view (e.g. "breadcrumbs::bootstrap4")')
             ->setDocumentationLinks(
                 [
-                    'Choosing a breadcrumbs template (view)' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x/installation',
-                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x',
+                    'Choosing a breadcrumbs template (view)' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/2.x/installation',
+                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/2.x',
                 ]
             );
     }

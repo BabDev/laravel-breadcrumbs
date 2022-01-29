@@ -14,7 +14,7 @@ interface BreadcrumbsGenerator
      * @param string                  $name      The name of the current page.
      * @param array                   $params    The parameters to pass to the closure for the current page.
      *
-     * @return Collection
+     * @return Collection<array-key, object>
      *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      */
@@ -28,8 +28,6 @@ interface BreadcrumbsGenerator
      * @param string $name      The name of the parent page.
      * @param array  ...$params The parameters to pass to the closure.
      *
-     * @return void
-     *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      */
     public function parent(string $name, ...$params): void;
@@ -42,8 +40,6 @@ interface BreadcrumbsGenerator
      * @param string      $title The title of the page.
      * @param string|null $url   The URL of the page.
      * @param array       $data  Optional associative array of additional data to pass to the view.
-     *
-     * @return void
      */
     public function push(string $title, string $url = null, array $data = []): void;
 }

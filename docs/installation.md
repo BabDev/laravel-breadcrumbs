@@ -95,18 +95,18 @@ Breadcrumbs::for('post', static function (BreadcrumbsGenerator $trail, Post $pos
 });
 ```
 
-Please see the [Defining Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/1.x/defining-breadcrumbs) page for more details on configuring your application's breadcrumb trails.
+Please see the [Defining Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/2.x/defining-breadcrumbs) page for more details on configuring your application's breadcrumb trails.
 
 ### Choose A Template
 
-Similar to the Laravel UI package, a [Bootstrap 4](https://getbootstrap.com/docs/4.4/components/breadcrumb/) compatible ordered list will be rendered, so if you're using Bootstrap 4 you can skip this step.
+A [Tailwind CSS](https://tailwindcss.com/) view is used by default for rendering the breadcrumb.
 
 If you are using another CSS framework, you will need to define a view compatible with your framework/template. Before defining this new view, you will need to publish the package configuration as noted above.
 
 Once published, open the `config/breadcrumbs.php` and edit this line:
 
 ```php
-    'view' => 'breadcrumbs::bootstrap4',
+    'view' => 'breadcrumbs::tailwind',
 ```
 
 #### Available Templates
@@ -114,11 +114,12 @@ Once published, open the `config/breadcrumbs.php` and edit this line:
 The below table lists the available templates and the CSS framework they correspond to.
 
 | Template Name             | Framework                                           | Since Package Version |
-| ------------------------- | --------------------------------------------------- | --------------------- |
+|---------------------------|-----------------------------------------------------|-----------------------|
 | `breadcrumbs::bootstrap4` | [Bootstrap](https://getbootstrap.com) (version 4.x) | 1.0                   |
+| `breadcrumbs::bootstrap5` | [Bootstrap](https://getbootstrap.com) (version 5.x) | 1.4                   |
 | `breadcrumbs::tailwind`   | [Tailwind CSS](https://tailwindcss.com/)            | 1.1                   |
 
-Please see the [Custom Templates](/open-source/packages/laravel-breadcrumbs/docs/1.x/custom-templates) page for more details on defining a breadcrumbs view.
+Please see the [Custom Templates](/open-source/packages/laravel-breadcrumbs/docs/2.x/custom-templates) page for more details on defining a breadcrumbs view.
 
 ### Output The Breadcrumbs
 
@@ -130,4 +131,4 @@ Finally, call `Breadcrumbs::render()` in the view for each page, passing it the 
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
-Please see the [Outputting Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/1.x/outputting-breadcrumbs) page for other output options, and the [Route-Bound Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs) page for details on linking breadcrumb names to route names automatically.
+Please see the [Outputting Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/2.x/outputting-breadcrumbs) page for other output options, and the [Route-Bound Breadcrumbs](/open-source/packages/laravel-breadcrumbs/docs/2.x/route-bound-breadcrumbs) page for details on linking breadcrumb names to route names automatically.

@@ -9,6 +9,7 @@ use BabDev\Breadcrumbs\Facades\Breadcrumbs;
 use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider;
 use BabDev\Breadcrumbs\Tests\Models\Post;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -16,6 +17,9 @@ class AdvancedUsageTest extends TestCase
 {
     use MatchesSnapshots;
 
+    /**
+     * @return array<class-string<ServiceProvider>>
+     */
     protected function getPackageProviders($app)
     {
         return [
@@ -23,6 +27,9 @@ class AdvancedUsageTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, class-string<ServiceProvider>>
+     */
     protected function getPackageAliases($app)
     {
         return [
@@ -32,15 +39,12 @@ class AdvancedUsageTest extends TestCase
 
     public function testCurrentPageBreadcrumb(): void
     {
-        \Route::name('home')
-            ->get('/', static function (): void {
-            });
+        \Route::name('home')->get('/', static function (): void {
+        });
 
         \Route::name('post')
             ->middleware(SubstituteBindings::class)
-            ->get('/post/{post}', static function (BreadcrumbsManager $manager, Post $post): string {
-                return $manager->current()->title;
-            });
+            ->get('/post/{post}', static fn (BreadcrumbsManager $manager, Post $post): string => $manager->current()->title);
 
         \Breadcrumbs::for('post', static function (BreadcrumbsGenerator $trail, Post $post): void {
             $trail->push('Home', route('home'));

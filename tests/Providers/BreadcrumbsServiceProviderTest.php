@@ -7,10 +7,14 @@ use BabDev\Breadcrumbs\Contracts\BreadcrumbsManager;
 use BabDev\Breadcrumbs\Facades\Breadcrumbs;
 use BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class BreadcrumbsServiceProviderTest extends TestCase
 {
+    /**
+     * @return array<class-string<ServiceProvider>>
+     */
     protected function getPackageProviders($app)
     {
         return [
@@ -18,6 +22,9 @@ class BreadcrumbsServiceProviderTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, class-string<ServiceProvider>>
+     */
     protected function getPackageAliases($app)
     {
         return [

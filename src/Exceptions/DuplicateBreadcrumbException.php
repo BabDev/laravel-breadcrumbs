@@ -12,16 +12,9 @@ use Illuminate\Support\Str;
  */
 class DuplicateBreadcrumbException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    public function __construct(string $name)
+    public function __construct(private string $name)
     {
         parent::__construct(sprintf('Breadcrumb name "%s" has already been registered', $name));
-
-        $this->name = $name;
     }
 
     public function getSolution(): Solution
@@ -47,8 +40,8 @@ class DuplicateBreadcrumbException extends \InvalidArgumentException implements 
             ->setSolutionDescription($description)
             ->setDocumentationLinks(
                 [
-                    'Defining breadcrumbs' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x/defining-breadcrumbs',
-                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x',
+                    'Defining breadcrumbs' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/2.x/defining-breadcrumbs',
+                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/2.x',
                 ]
             );
     }

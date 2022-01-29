@@ -21,12 +21,12 @@ class InvalidBreadcrumbExceptionTest extends TestCase
         $solution = (new InvalidBreadcrumbException('invalid'))->getSolution();
 
         $description = <<<DESC
-```php
-Breadcrumbs::for('invalid', function (\$trail) {
-    \$trail->push('Title Here', url('%s'));
-});
-```
-DESC;
+            ```php
+            \Breadcrumbs::for('invalid', function (\\BabDev\\Breadcrumbs\\Contracts\\BreadcrumbsGenerator \$trail) {
+                \$trail->push('Title Here', url('%s'));
+            });
+            ```
+            DESC;
 
         $this->assertStringMatchesFormat(
             $description,
@@ -49,12 +49,12 @@ DESC;
         $solution = (new InvalidBreadcrumbException('invalid'))->getSolution();
 
         $description = <<<DESC
-```php
-Breadcrumbs::for('invalid', function (\$trail) {
-    \$trail->push('Title Here', url('%s'));
-});
-```
-DESC;
+            ```php
+            \Breadcrumbs::for('invalid', function (\\BabDev\\Breadcrumbs\\Contracts\\BreadcrumbsGenerator \$trail) {
+                \$trail->push('Title Here', url('%s'));
+            });
+            ```
+            DESC;
 
         $this->assertStringMatchesFormat(
             $description,
@@ -79,12 +79,12 @@ DESC;
         $solution = $exception->getSolution();
 
         $description = <<<DESC
-```php
-Breadcrumbs::for('invalid', function (\$trail) {
-    \$trail->push('Title Here', url('%s'));
-});
-```
-DESC;
+            ```php
+            \Breadcrumbs::for('invalid', function (\\BabDev\\Breadcrumbs\\Contracts\\BreadcrumbsGenerator \$trail) {
+                \$trail->push('Title Here', url('%s'));
+            });
+            ```
+            DESC;
 
         $this->assertStringMatchesFormat(
             $description,
@@ -103,13 +103,9 @@ DESC;
             ]
         );
 
-        $route = $this->app['router']->get('/', static function (): Response {
-            return new Response();
-        })->name('home');
+        $route = $this->app['router']->get('/', static fn (): Response => new Response())->name('home');
 
-        $this->app['request']->setRouteResolver(static function () use ($route): Route {
-            return $route;
-        });
+        $this->app['request']->setRouteResolver(static fn (): Route => $route);
 
         $exception = new InvalidBreadcrumbException('invalid');
         $exception->routeIsBounded();
@@ -117,12 +113,12 @@ DESC;
         $solution = $exception->getSolution();
 
         $description = <<<DESC
-```php
-Breadcrumbs::for('invalid', function (\$trail) {
-    \$trail->push('Title Here', route('%s'));
-});
-```
-DESC;
+            ```php
+            \Breadcrumbs::for('invalid', function (\\BabDev\\Breadcrumbs\\Contracts\\BreadcrumbsGenerator \$trail) {
+                \$trail->push('Title Here', route('%s'));
+            });
+            ```
+            DESC;
 
         $this->assertStringMatchesFormat(
             $description,

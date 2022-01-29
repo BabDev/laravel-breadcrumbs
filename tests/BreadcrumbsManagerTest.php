@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
+use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -53,6 +54,9 @@ class BreadcrumbsManagerTest extends TestCase
         $this->manager = new BreadcrumbsManager($this->generator, $this->router, $this->viewFactory);
     }
 
+    /**
+     * @return array<class-string<ServiceProvider>>
+     */
     protected function getPackageProviders($app)
     {
         return [
@@ -398,9 +402,7 @@ class BreadcrumbsManagerTest extends TestCase
 
     public function testManagerIsMacroable(): void
     {
-        BreadcrumbsManager::macro('tester', function (): string {
-            return 'Tester';
-        });
+        BreadcrumbsManager::macro('tester', fn (): string => 'Tester');
 
         $this->assertSame('Tester', $this->getManager()->tester());
     }

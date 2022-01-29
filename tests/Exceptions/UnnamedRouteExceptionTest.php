@@ -10,21 +10,19 @@ class UnnamedRouteExceptionTest extends TestCase
 {
     public function testProvidesSolutionForAClosureRoute(): void
     {
-        $route = $this->app['router']->get('/blog', static function (): Response {
-            return new Response();
-        });
+        $route = $this->app['router']->get('/blog', static fn (): Response => new Response());
 
         $solution = (new UnnamedRouteException($route))->getSolution();
 
         $description = <<<DESC
-For example:
+            For example:
 
-```php
-Route::get('blog', function() {
-    ...
-})->name('sample-name');
-```
-DESC
+            ```php
+            Route::get('blog', function() {
+                ...
+            })->name('sample-name');
+            ```
+            DESC
         ;
 
         $this->assertStringMatchesFormat(
@@ -40,12 +38,12 @@ DESC
         $solution = (new UnnamedRouteException($route))->getSolution();
 
         $description = <<<DESC
-For example:
+            For example:
 
-```php
-Route::get('blog', 'BlogController@index')->name('sample-name');
-```
-DESC
+            ```php
+            Route::get('blog', 'BlogController@index')->name('sample-name');
+            ```
+            DESC
         ;
 
         $this->assertStringMatchesFormat(
@@ -61,12 +59,12 @@ DESC
         $solution = (new UnnamedRouteException($route))->getSolution();
 
         $description = <<<DESC
-For example:
+            For example:
 
-```php
-Route::view('blog', 'blog')->name('sample-name');
-```
-DESC
+            ```php
+            Route::view('blog', 'blog')->name('sample-name');
+            ```
+            DESC
         ;
 
         $this->assertStringMatchesFormat(

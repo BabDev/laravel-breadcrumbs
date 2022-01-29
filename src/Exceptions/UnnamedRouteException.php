@@ -14,18 +14,11 @@ use Illuminate\Support\Str;
  */
 class UnnamedRouteException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
-    /**
-     * @var Route
-     */
-    private $route;
-
-    public function __construct(Route $route)
+    public function __construct(private Route $route)
     {
         $uri = Arr::first($route->methods()) . ' /' . ltrim($route->uri(), '/');
 
         parent::__construct(sprintf('The current route "%s" is not named', $uri));
-
-        $this->route = $route;
     }
 
     public function getSolution(): Solution
@@ -44,20 +37,20 @@ class UnnamedRouteException extends \InvalidArgumentException implements Breadcr
         }
 
         $description = <<<DESC
-For example:
+            For example:
 
-```php
-Route::$method('$uri', $action)->name('sample-name');
-```
-DESC
+            ```php
+            Route::$method('$uri', $action)->name('sample-name');
+            ```
+            DESC
         ;
 
         return BaseSolution::create('Give the route a name')
             ->setSolutionDescription($description)
             ->setDocumentationLinks(
                 [
-                    'Route-bound breadcrumbs' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x/route-bound-breadcrumbs',
-                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/1.x',
+                    'Route-bound breadcrumbs' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/2.x/route-bound-breadcrumbs',
+                    'Laravel Breadcrumbs documentation' => 'https://www.babdev.com/open-source/packages/laravel-breadcrumbs/docs/2.x',
                 ]
             );
     }

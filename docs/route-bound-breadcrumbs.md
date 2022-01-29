@@ -156,4 +156,4 @@ Breadcrumbs::for('photos.edit', static function (BreadcrumbsGenerator $trail, Ph
 
 For more details see [Resource Controllers](https://laravel.com/docs/controllers#resource-controllers) in the Laravel documentation.
 
-(Related FAQ: [Why is there no Breadcrumbs::resource() method?](/open-source/packages/laravel-breadcrumbs/docs/1.x/faq).)
+(Related FAQ: [Why is there no Breadcrumbs::resource() method?](/open-source/packages/laravel-breadcrumbs/docs/2.x/faq).)

@@ -9,26 +9,15 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.2', '7.3', '7.4', '8.0']
-        laravel: ['^6.18', '8.*']
+        php: ['8.0', '8.1']
+        laravel: ['9.*']
         composer-flags: ['--prefer-stable']
         can-fail: [false]
         include:
-          - php: '7.2'
-            laravel: '^6.18'
+          - php: '8.0'
+            laravel: '9.*'
             composer-flags: '--prefer-stable --prefer-lowest'
             can-fail: false
-          - php: '8.1'
-            laravel: '8.*'
-            composer-flags: '--prefer-stable'
-            can-fail: false
-          - php: '8.1'
-            laravel: '9.*'
-            composer-flags: ''
-            can-fail: true
-        exclude:
-          - php: '7.2'
-            laravel: '8.*'
 
     name: "PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}${{ matrix.composer-flags != '' && format(' - Composer {0}', matrix.composer-flags) || '' }}"
 

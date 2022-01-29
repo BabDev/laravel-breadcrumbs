@@ -9,14 +9,8 @@ use BabDev\Breadcrumbs\Contracts\BreadcrumbsManager;
  */
 final class BreadcrumbFileRegistrar
 {
-    /**
-     * @var BreadcrumbsManager
-     */
-    private $breadcrumbs;
-
-    public function __construct(BreadcrumbsManager $breadcrumbs)
+    public function __construct(private BreadcrumbsManager $breadcrumbs)
     {
-        $this->breadcrumbs = $breadcrumbs;
     }
 
     public function register(string $file): void

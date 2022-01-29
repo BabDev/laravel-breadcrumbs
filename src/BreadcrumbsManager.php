@@ -21,26 +21,11 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     use Macroable;
 
     /**
-     * @var BreadcrumbsGenerator
-     */
-    protected $generator;
-
-    /**
-     * @var Router
-     */
-    protected $router;
-
-    /**
-     * @var ViewFactory
-     */
-    protected $viewFactory;
-
-    /**
      * The registered breadcrumb-generating callbacks.
      *
      * @var array<string, callable>
      */
-    protected $callbacks = [];
+    protected array $callbacks = [];
 
     /**
      * The current route name and parameters.
@@ -49,20 +34,16 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      */
     protected $route;
 
-    public function __construct(BreadcrumbsGenerator $generator, Router $router, ViewFactory $viewFactory)
-    {
-        $this->generator = $generator;
-        $this->router = $router;
-        $this->viewFactory = $viewFactory;
+    public function __construct(
+        protected BreadcrumbsGenerator $generator,
+        protected Router $router,
+        protected ViewFactory $viewFactory,
+    ) {
     }
 
     /**
-     * Registers a breadcrumb-generating callback.
-     *
      * @param string   $name     The name of the page.
      * @param callable $callback The callback, which should accept a {@link BreadcrumbsGenerator} instance as the first parameter and may accept additional parameters.
-     *
-     * @return void
      *
      * @throws DuplicateBreadcrumbException if the given name has already been used.
      */
@@ -76,18 +57,14 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     }
 
     /**
-     * Check if a breadcrumb with the given name exists.
-     *
      * @param string|null $name The page name, defaults to the current route name.
-     *
-     * @return bool
      */
     public function exists(?string $name = null): bool
     {
         if (null === $name) {
             try {
                 [$name] = $this->getCurrentRoute();
-            } catch (UnnamedRouteException $e) {
+            } catch (UnnamedRouteException) {
                 return false;
             }
         }
@@ -96,12 +73,10 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     }
 
     /**
-     * Generate a set of breadcrumbs for a page.
-     *
      * @param string|null $name      The page name, defaults to the current route name.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
      *
-     * @return Collection
+     * @return Collection<array-key, object>
      *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      * @throws UnnamedRouteException      if no name is given and the current route doesn't have an associated name
@@ -142,13 +117,8 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     }
 
     /**
-     * Render breadcrumbs for a page with the specified view.
-     *
-     * @param string      $view      The name of the view to render.
      * @param string|null $name      The page name, defaults to the current route name.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     *
-     * @return View
      *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      * @throws UnnamedRouteException      if no name is given and the current route doesn't have an associated name
@@ -165,8 +135,6 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     }
 
     /**
-     * Render breadcrumbs for a page with the default view.
-     *
      * @param string|null $name      The page name, defaults to the current route name.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
      *
@@ -188,10 +156,6 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     }
 
     /**
-     * Get the last breadcrumb for the current page.
-     *
-     * @return object|null The breadcrumb for the current page.
-     *
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered
      * @throws UnnamedRouteException      if the current route doesn't have an associated name
      */
@@ -215,7 +179,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      *
      * @throws UnnamedRouteException if the current route doesn't have an associated name
      */
-    protected function getCurrentRoute()
+    protected function getCurrentRoute(): array
     {
         // Manually set route
         if ($this->route) {
@@ -248,8 +212,6 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
      *
      * @param string $name      The name of the current page.
      * @param mixed  ...$params The parameters to pass to the closure for the current page.
-     *
-     * @return void
      */
     public function setCurrentRoute(string $name, ...$params): void
     {
@@ -259,9 +221,7 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     /**
      * Clear the previously set route name and parameters to use when calling render() or generate() with no parameters.
      *
-     * Next time it will revert to the default behaviour of using the current route from Laravel.
-     *
-     * @return void
+     * Next time it will revert to the default behavior of using the current route from Laravel.
      */
     public function clearCurrentRoute(): void
     {
