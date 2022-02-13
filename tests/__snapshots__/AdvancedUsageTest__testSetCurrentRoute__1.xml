@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active">Sample</li>
+<nav class="text-black font-bold my-8" aria-label="breadcrumb">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <a href="#" class="text-gray-500" aria-current="page">Sample</a>
+    </li>
   </ol>
 </nav>
