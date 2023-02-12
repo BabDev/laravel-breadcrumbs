@@ -351,7 +351,7 @@ class BreadcrumbsManagerTest extends TestCase
         $this->assertSame($current, $this->manager->current());
     }
 
-    public function packageViews(): \Generator
+    public static function packageViews(): \Generator
     {
         foreach (glob(__DIR__ . '/../resources/views/*.blade.php') as $filename) {
             $name = basename($filename, '.blade.php');
