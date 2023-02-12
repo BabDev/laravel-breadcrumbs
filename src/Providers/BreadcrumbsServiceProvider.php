@@ -34,19 +34,13 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
 
     public function boot(): void
     {
-        $this->publishes(
-            [
-                __DIR__ . '/../../config/breadcrumbs.php' => $this->app->configPath('breadcrumbs.php'),
-            ],
-            'config'
-        );
+        $this->publishes([
+            __DIR__ . '/../../config/breadcrumbs.php' => $this->app->configPath('breadcrumbs.php'),
+        ], 'config');
 
-        $this->publishes(
-            [
-                __DIR__ . '/../../resources/views' => $this->app->basePath('resources/views/vendor/breadcrumbs'),
-            ],
-            'views'
-        );
+        $this->publishes([
+            __DIR__ . '/../../resources/views' => $this->app->basePath('resources/views/vendor/breadcrumbs'),
+        ], 'views');
 
         $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'breadcrumbs');
     }

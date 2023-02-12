@@ -12,8 +12,9 @@ use Illuminate\Support\Str;
  */
 class DuplicateBreadcrumbException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
-    public function __construct(private string $name)
-    {
+    public function __construct(
+        private readonly string $name,
+    ) {
         parent::__construct(sprintf('Breadcrumb name "%s" has already been registered', $name));
     }
 

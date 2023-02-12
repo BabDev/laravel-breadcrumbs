@@ -16,6 +16,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -23,25 +24,13 @@ class BreadcrumbsManagerTest extends TestCase
 {
     use MatchesSnapshots;
 
-    /**
-     * @var MockObject&BreadcrumbsGenerator
-     */
-    private $generator;
+    private MockObject&BreadcrumbsGenerator $generator;
 
-    /**
-     * @var MockObject&Router
-     */
-    private $router;
+    private MockObject&Router $router;
 
-    /**
-     * @var MockObject&ViewFactory
-     */
-    private $viewFactory;
+    private MockObject&ViewFactory $viewFactory;
 
-    /**
-     * @var BreadcrumbsManager
-     */
-    private $manager;
+    private BreadcrumbsManager $manager;
 
     protected function setUp(): void
     {
@@ -66,10 +55,8 @@ class BreadcrumbsManagerTest extends TestCase
 
     private function getManager(): BreadcrumbsManager
     {
-        /** @var BreadcrumbsManager $manager */
-        $manager = $this->app->make('breadcrumbs.manager');
-
-        return $manager;
+        /** @var BreadcrumbsManager */
+        return $this->app->make('breadcrumbs.manager');
     }
 
     public function testACallbackIsRegistered(): void
@@ -364,9 +351,7 @@ class BreadcrumbsManagerTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider packageViews
-     */
+    #[DataProvider('packageViews')]
     public function testPackageViewsAreRendered(string $view): void
     {
         $manager = $this->getManager();

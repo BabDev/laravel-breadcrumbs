@@ -12,15 +12,9 @@ use Orchestra\Testbench\TestCase;
 
 class BreadcrumbsGeneratorTest extends TestCase
 {
-    /**
-     * @var Dispatcher
-     */
-    private $dispatcher;
+    private Dispatcher $dispatcher;
 
-    /**
-     * @var BreadcrumbsGenerator
-     */
-    private $generator;
+    private BreadcrumbsGenerator $generator;
 
     protected function setUp(): void
     {

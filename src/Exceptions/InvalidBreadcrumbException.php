@@ -13,13 +13,11 @@ use Illuminate\Support\Str;
  */
 class InvalidBreadcrumbException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
-    /**
-     * @var bool
-     */
-    private $routeIsBounded = false;
+    private bool $routeIsBounded = false;
 
-    public function __construct(private string $name)
-    {
+    public function __construct(
+        private readonly string $name,
+    ) {
         parent::__construct(sprintf('Breadcrumb not found with name "%s"', $name));
     }
 

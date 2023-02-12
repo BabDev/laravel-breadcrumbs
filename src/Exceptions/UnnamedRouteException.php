@@ -14,8 +14,9 @@ use Illuminate\Support\Str;
  */
 class UnnamedRouteException extends \InvalidArgumentException implements BreadcrumbsException, ProvidesSolution
 {
-    public function __construct(private Route $route)
-    {
+    public function __construct(
+        private readonly Route $route,
+    ) {
         $uri = Arr::first($route->methods()) . ' /' . ltrim($route->uri(), '/');
 
         parent::__construct(sprintf('The current route "%s" is not named', $uri));
