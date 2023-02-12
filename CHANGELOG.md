@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0 (2023-02-12)
+
+- Added support for Laravel 10
+
 ## 1.4.0 (2022-01-29)
 
 - Added Bootstrap 5 template
