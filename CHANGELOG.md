@@ -1,5 +1,5 @@
 # Changelog
 
-## 2.0.0 (2022-??-??)
+## 2.0.0 (2023-??-??)
 
 - Consult the UPGRADE guide for changes between 1.x and 2.0
