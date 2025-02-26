@@ -27,9 +27,7 @@ class BreadcrumbsGenerator implements BreadcrumbsGeneratorContract
      */
     protected array $callbacks = [];
 
-    public function __construct(protected Dispatcher $dispatcher)
-    {
-    }
+    public function __construct(protected Dispatcher $dispatcher) {}
 
     /**
      * @param array<string, callable> $callbacks The registered breadcrumb-generating callbacks.

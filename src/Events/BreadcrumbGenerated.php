@@ -10,6 +10,5 @@ abstract class BreadcrumbGenerated
         public BreadcrumbsGenerator $breadcrumbs,
         public string $name,
         public array $params
-    ) {
-    }
+    ) {}
 }

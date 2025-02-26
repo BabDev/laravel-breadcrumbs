@@ -2,6 +2,4 @@
 
 namespace BabDev\Breadcrumbs\Events;
 
-class BeforeBreadcrumbGenerated extends BreadcrumbGenerated
-{
-}
+class BeforeBreadcrumbGenerated extends BreadcrumbGenerated {}

@@ -5,8 +5,9 @@ The below guide will assist in upgrading from the 1.x versions to 2.0.
 ## Package Requirements
 
 - Laravel 10 or later
-- PHP 8.1 or later
+- PHP 8.2 or later
 
 ## General Changes
 
 - The default view is now the `breadcrumbs::tailwind` view
+- Removed support for `facade/ignition-contracts`

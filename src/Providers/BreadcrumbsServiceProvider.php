@@ -58,7 +58,7 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
     {
         $this->app->bind(
             'breadcrumbs.generator',
-            static fn (Application $app): BreadcrumbsGeneratorContract => new BreadcrumbsGenerator($app->make('events')),
+            static fn(Application $app): BreadcrumbsGeneratorContract => new BreadcrumbsGenerator($app->make('events')),
         );
 
         $this->app->alias('breadcrumbs.generator', BreadcrumbsGeneratorContract::class);
@@ -69,7 +69,7 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
     {
         $this->app->singleton(
             'breadcrumbs.manager',
-            static fn (Application $app): BreadcrumbsManagerContract => new BreadcrumbsManager(
+            static fn(Application $app): BreadcrumbsManagerContract => new BreadcrumbsManager(
                 $app->make('breadcrumbs.generator'),
                 $app->make('router'),
                 $app->make('view'),
@@ -102,7 +102,7 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
                 // Support both a single string filename and an array of filenames (e.g. returned by glob())
                 foreach ((array) $files as $file) {
                     if (!$filesystem->exists($file)) {
-                        throw new FileNotFoundException(sprintf('The breadcrumb file "%s" does not exist.', $file));
+                        throw new FileNotFoundException(\sprintf('The breadcrumb file "%s" does not exist.', $file));
                     }
 
                     $registrar->register($file);

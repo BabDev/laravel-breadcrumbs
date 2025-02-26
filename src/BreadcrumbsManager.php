@@ -2,6 +2,7 @@
 
 namespace BabDev\Breadcrumbs;
 
+use BabDev\Breadcrumbs\Contracts\BreadcrumbsGenerator as BreadcrumbsGeneratorContract;
 use BabDev\Breadcrumbs\Contracts\BreadcrumbsManager as BreadcrumbsManagerContract;
 use BabDev\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use BabDev\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
@@ -35,15 +36,14 @@ class BreadcrumbsManager implements BreadcrumbsManagerContract
     protected $route;
 
     public function __construct(
-        protected BreadcrumbsGenerator $generator,
+        protected BreadcrumbsGeneratorContract $generator,
         protected Router $router,
         protected ViewFactory $viewFactory,
-    ) {
-    }
+    ) {}
 
     /**
      * @param string   $name     The name of the page.
-     * @param callable $callback The callback, which should accept a {@link BreadcrumbsGenerator} instance as the first parameter and may accept additional parameters.
+     * @param callable $callback The callback, which should accept a {@link BreadcrumbsGeneratorContract} instance as the first parameter and may accept additional parameters.
      *
      * @throws DuplicateBreadcrumbException if the given name has already been used.
      */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Breadcrumbs file which utilizes the facade
  */

@@ -39,12 +39,11 @@ class AdvancedUsageTest extends TestCase
 
     public function testCurrentPageBreadcrumb(): void
     {
-        \Route::name('home')->get('/', static function (): void {
-        });
+        \Route::name('home')->get('/', static function (): void {});
 
         \Route::name('post')
             ->middleware(SubstituteBindings::class)
-            ->get('/post/{post}', static fn (BreadcrumbsManager $manager, Post $post): string => $manager->current()->title);
+            ->get('/post/{post}', static fn(BreadcrumbsManager $manager, Post $post): string => $manager->current()->title);
 
         \Breadcrumbs::for('post', static function (BreadcrumbsGenerator $trail, Post $post): void {
             $trail->push('Home', route('home'));
