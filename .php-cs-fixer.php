@@ -3,6 +3,7 @@
 $finder = (new PhpCsFixer\Finder())
     ->notPath('config')
     ->notPath('vendor')
+    ->notPath('Facades')
     ->in(__DIR__)
     ->name('*.php')
     ->notName('*.blade.php')
@@ -37,21 +38,19 @@ return (new PhpCsFixer\Config())
                 'while',
             ],
         ],
-        'braces'                                      => true,
         'cast_spaces'                                 => [
             'space' => 'single',
         ],
         'class_definition'                            => true,
         'combine_consecutive_issets'                  => true,
         'combine_consecutive_unsets'                  => true,
-        'compact_nullable_typehint'                   => true,
+        'compact_nullable_type_declaration'           => true,
         'concat_space'                                => [
             'spacing' => 'one',
         ],
         'declare_strict_types'                        => false,
         'dir_constant'                                => true,
         'function_to_constant'                        => true,
-        'function_typehint_space'                     => true,
         'increment_style'                             => [
             'style' => 'post',
         ],
@@ -69,7 +68,7 @@ return (new PhpCsFixer\Config())
         'native_constant_invocation'                  => true,
         'native_function_casing'                      => true,
         'native_function_invocation'                  => true,
-        'new_with_braces'                             => true,
+        'new_with_parentheses'                        => true,
         'no_alias_functions'                          => true,
         'no_blank_lines_after_class_opening'          => true,
         'no_blank_lines_after_phpdoc'                 => true,
@@ -82,9 +81,9 @@ return (new PhpCsFixer\Config())
         'no_null_property_initialization'             => true,
         'no_short_bool_cast'                          => true,
         'no_spaces_after_function_name'               => true,
-        'no_spaces_inside_parenthesis'                => true,
+        'spaces_inside_parentheses'                   => false,
         'no_superfluous_elseif'                       => true,
-        'no_trailing_comma_in_singleline_array'       => true,
+        'no_trailing_comma_in_singleline'             => true,
         'no_trailing_whitespace'                      => true,
         'no_trailing_whitespace_in_comment'           => true,
         'no_unneeded_control_parentheses'             => true,
@@ -114,6 +113,7 @@ return (new PhpCsFixer\Config())
                 'arrays',
             ],
         ],
+        'type_declaration_spaces'                     => true,
         'visibility_required'                         => [
             'elements' => ['property', 'method', 'const'],
         ],
