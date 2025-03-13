@@ -39,7 +39,7 @@ final class BreadcrumbsServiceProvider extends ServiceProvider implements Deferr
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/../../resources/views' => $this->app->basePath('resources/views/vendor/breadcrumbs'),
+            __DIR__ . '/../../resources/views' => $this->app->resourcePath('views/vendor/breadcrumbs'),
         ], 'views');
 
         $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'breadcrumbs');
