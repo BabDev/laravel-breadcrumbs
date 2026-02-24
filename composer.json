@@ -2,6 +2,7 @@
     "name": "babdev/laravel-breadcrumbs",
     "license": "MIT",
     "description": "Adds breadcrumb support to your Laravel applications.",
+    "abandoned": true,
     "keywords": [
         "laravel",
         "breadcrumb"
